@@ -55,7 +55,7 @@ function preload(){
 	game.load.image('grassfront5', '/images/grass2.png');
 	game.load.image('grassfront6', '/images/grass2.png');
 	game.load.image('grassfront7', '/images/grass4.png');
-
+	game.load.audio('music', '/sounds/8-Bit.mp3')
 
 };
 
@@ -63,7 +63,10 @@ function preload(){
 function create(){
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 // timer
-	game.time.events.add(Phaser.Timer.SECOND * 40);
+	game.time.events.add(Phaser.Timer.SECOND * 100);
+// music
+	music = game.add.audio('music');
+	music.play();
 // adding background img and setting size variables
 	background = game.add.tileSprite(0, 0, 2000, 1080, 'background');
 	background.scale.x = game.rnd.realInRange(.70, .70);
@@ -414,6 +417,13 @@ function update() {
 	}
 	// function gemCounter(runner, yellowJewel){
 
+	// }
+	// function changeVolume(){
+	// 	if (pointer.y <300){
+	// 		music.pause();
+	// 	} else {
+	// 		music.resume();
+	// 	}
 	// }
 };
 function render(){
