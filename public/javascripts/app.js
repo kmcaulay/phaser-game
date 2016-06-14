@@ -355,13 +355,13 @@ function update() {
 	else if(cursors.right.isDown)
 	{
 // setting velocity when going righ†(forward)
-		background.tilePosition.x +=-3;
+		background.tilePosition.x +=-2;
 		runner.body.velocity.x = 75;
-		cloud.body.velocity.x = -130;
-		tree.body.velocity.x =-130;
-		tree1.body.velocity.x =-130;
-		grass.body.velocity.x =-130;
-		grass1.body.velocity.x =-130;
+		cloud.body.velocity.x = -100;
+		tree.body.velocity.x =-100;
+		tree1.body.velocity.x =-100;
+		grass.body.velocity.x =-100;
+		grass1.body.velocity.x =-100;
 		grassfront.body.velocity.x = -130;
 		grassfront1.body.velocity.x = -130;
 		grassfront2.body.velocity.x = -130;
