@@ -4,7 +4,7 @@ var game = new Phaser.Game(1024, 768, Phaser.CANVAS, '', {
 	preload: preload, 
 	create: create, 
 	update: update,
-		
+	render: render
 });
 
 // function onResizeCalled(){
@@ -62,6 +62,8 @@ function preload(){
 
 function create(){
 	game.physics.startSystem(Phaser.Physics.ARCADE);
+// timer
+	game.time.events.add(Phaser.Timer.SECOND * 40);
 // adding background img and setting size variables
 	background = game.add.tileSprite(0, 0, 2000, 1080, 'background');
 	background.scale.x = game.rnd.realInRange(.70, .70);
@@ -406,8 +408,15 @@ function update() {
 	function hitJewel(runner, yellowJewel){
 		yellowJewel.kill();
 	}
+	// runner dies when touch spikes
 	function spikeDeath(runner, spikes){
 		runner.kill();
 	}
-};
+	// function gemCounter(runner, yellowJewel){
 
+	// }
+};
+function render(){
+	game.debug.text("Timer: " + game.time.events.duration, 32, 32);
+
+}
