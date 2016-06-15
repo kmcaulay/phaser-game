@@ -1,4 +1,4 @@
-window.addEventListener('resize', false);
+window.addEventListener('resize', onResizeCalled, false);
 
 var game = new Phaser.Game(1024, 768, Phaser.CANVAS, '', {
 	preload: preload, 
@@ -7,10 +7,10 @@ var game = new Phaser.Game(1024, 768, Phaser.CANVAS, '', {
 	render: render
 });
 
-// function onResizeCalled(){
-// 	canvas.style.width = window.innerWidth + 'px';
-// 	canvas.style.height = window.innerHeight + 'px';
-// }
+function onResizeCalled(){
+	canvas.style.width = window.innerWidth + 'px';
+	canvas.style.height = window.innerHeight + 'px';
+}
 
 function preload(){
 
@@ -55,6 +55,7 @@ function preload(){
 	game.load.image('grassfront5', '/images/grass2.png');
 	game.load.image('grassfront6', '/images/grass2.png');
 	game.load.image('grassfront7', '/images/grass4.png');
+	game.load.image('menu', '/images/puzzleRed.png')
 	game.load.audio('music', '/sounds/8-Bit.mp3')
 
 };
@@ -255,6 +256,7 @@ function create(){
 // giving the runner physics
 	game.physics.arcade.enable(runner);
 	runner.body.gravity.y = 500;
+	runner.body.collideWorldBounds = true;
 // add animation to character running
 	// runner.animation.add('right', [0,1,2,1], 2, true);
 	// game.add.tween(runner).to({x: game.width }, 10000, Phaser.Easing.Linear.None, true);
@@ -280,6 +282,27 @@ function create(){
 	cursors = game.input.keyboard.createCursorKeys();
 
 	game.camera.follow(runner);
+// pause function
+	pause_label = game.add.text(w = 300, 20, 'Pause', {font: '24px Arial', fill: '#648C44'});
+	pause_label.inputEnabled = true;
+	pause_label.events.onInputUp.add(function(){
+		game.paused = true
+
+		menu = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'menu')
+		menu.scale.x = game.rnd.realInRange(6, 6);
+		menu.scale.y = game.rnd.realInRange(6, 6);
+		menu.anchor.setTo(0.5,0.5);
+	})
+	game.input.onDown.add(unpause, self);
+
+	function unpause(event){
+		if(game.paused){
+			
+			menu.destroy();
+
+			game.paused = false;
+			}
+		}
 };
 
 function update() {
@@ -418,13 +441,13 @@ function update() {
 	// function gemCounter(runner, yellowJewel){
 
 	// }
-	// function changeVolume(){
-	// 	if (pointer.y <300){
-	// 		music.pause();
-	// 	} else {
-	// 		music.resume();
-	// 	}
-	// }
+	function musicPause(){
+		if (pointer.y <300){
+			music.pause();
+		} else {
+			music.resume();
+		}
+	}
 };
 function render(){
 	game.debug.text("Timer: " + game.time.events.duration, 32, 32);
