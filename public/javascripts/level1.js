@@ -497,20 +497,20 @@ function update() {
 	function spikeDeath(runner, spikes){
 		runner.kill();
 	}
-
 // grabbing jewels	
 	function hitJewel(runner, yellowJewel){
 		yellowJewels++
 		yellowJewel.kill();
 	}
+	// pausing game with menu
 	if(document.getElementById('light').style.display == 'block'){
 		game.paused = true;
 	} 
+	// unpausing game with menu
 	if(document.getElementById('light').style.display == 'none'){
 		game.paused = false;
 		}
 };
-
 function render(){
 	stopWatch -= (game.paused)?0 : this.game.time.elapsed;
 	game.debug.text("Timer: " + stopWatch , 32, 32, '#648C44', 'Lobster 80px');
