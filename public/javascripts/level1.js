@@ -12,11 +12,24 @@ function onResizeCalled(){
 	canvas.style.height = window.innerHeight + 'px';
 }
 
+WebFontConfig = {
+  google: { families: [ 'Lobster::latin' ] }
+};
+(function() {
+  var wf = document.createElement('script');
+  wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+  wf.type = 'text/javascript';
+  wf.async = 'true';
+  var s = document.getElementsByTagName('script')[0];
+  s.parentNode.insertBefore(wf, s);
+})();
+
 yellowJewels = 0
 var w = 1024, h = 768;
+var stopWatch = 1000000;
 
 function preload(){
-
+	game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 	game.load.image('background', '/images/colored_talltrees.png');
 	game.load.image('tree', '/images/tree27.png');
 	game.load.image('tree1', '/images/tree27.png');
@@ -66,17 +79,17 @@ function preload(){
 	game.load.image('grassfront7', '/images/grass4.png');
 	game.load.image('menu', '/images/puzzleRed.png')
 	game.load.audio('music', '/sounds/8-Bit.mp3')
+	game.load.audio('jump', '/sounds/Jump.mp3')
 
 };
 
 
 function create(){
 	game.physics.startSystem(Phaser.Physics.ARCADE);
-// timer
-	game.time.events.add(Phaser.Timer.SECOND * 100);
 // music
 	music = game.add.audio('music');
 	music.play();
+
 // adding background img and setting size variables
 	background = game.add.tileSprite(0, 0, 2000, 1080, 'background');
 	background.scale.x = game.rnd.realInRange(.70, .70);
@@ -328,46 +341,17 @@ function create(){
 
 // establish jumping for runner
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+	
+	jump = game.add.audio('jump')
+	
 	cursors = game.input.keyboard.createCursorKeys();
 
 	game.camera.follow(runner);
-// pause/menu function
-	pause_label = game.add.text(w = 300, 20, 'Menu', {font: '24px Lobster', fill: '#648C44'});
-	pause_label.inputEnabled = true;
-	pause_label.events.onInputUp.add(function(){
-		game.paused = true
+	
 
-		menu = game.add.sprite(window.innerWidth/2, window.innerHeight/2, 'menu')
-		menu.scale.x = game.rnd.realInRange(6, 6);
-		menu.scale.y = game.rnd.realInRange(6, 6);
-		menu.anchor.setTo(0.5,0.5);
-
-		choiceLabel = game.add.text('menu', {font: '30px', fill: '#648C44'})
-		choiceLabel.anchor.setTo(0.5,0.5);
-	})
-	game.input.onDown.add(unpause, self);
-
-	function unpause(event){
-		if(game.paused){
-			var x1 = w/2 - 270/2, x2 = w/2 + 270/2,
-            y1 = h/2 - 180/2, y2 = h/2 + 180/2;
-      if(event.x > x1 && event.x < x2 && event.y > y1 && event.y < y2){
-       	var x = event.x - x1,
-       			y = event.y - y1;
-       	var choice = Math.floor(x/90) + 3*Math.floor(y/90);
-
-       	choiceLabel.text = 'Menu'
-      } else {
-				menu.destroy();
-				choiceLabel.destroy();
-				game.paused = false;
-      }
-		}
-	}
 };
 
 function update() {
-
 // collisions
 	game.physics.arcade.collide(runner, line);
 	game.physics.arcade.collide(runner, block);
@@ -514,22 +498,24 @@ function update() {
 		runner.kill();
 	}
 
-	// function musicPause(){
-	// 	if (pointer.y <300){
-	// 		music.pause();
-	// 	} else {
-	// 		music.resume();
-	// 	}
-	// }
 // grabbing jewels	
 	function hitJewel(runner, yellowJewel){
 		yellowJewels++
 		yellowJewel.kill();
 	}
+	if(document.getElementById('light').style.display == 'block'){
+		game.paused = true;
+	} 
+	if(document.getElementById('light').style.display == 'none'){
+		game.paused = false;
+		}
 };
 
 function render(){
-	game.debug.text("Timer: " + game.time.events.duration, 32, 32, '#648C44');
-	game.debug.text("Gems: " + yellowJewels, 500, 20, '#648C44', 'Arial');
+	stopWatch -= (game.paused)?0 : this.game.time.elapsed;
+	game.debug.text("Timer: " + stopWatch , 32, 32, '#648C44', 'Lobster 80px');
+	
+	game.debug.text('GEMS: ' + yellowJewels, 500, 20, '#648C44','Lobster 80px');
 
 }
+

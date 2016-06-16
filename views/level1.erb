@@ -4,8 +4,21 @@
 	<title>Level 1</title>
 	<script type="text/javascript" src="/javascripts/phaser.min.js"></script>
 	<script type="text/javascript" src="/javascripts/level1.js"></script>
+	<link rel="stylesheet" type="text/css" href="/styles/main.css">
 </head>
 <body>
-
+	<a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';">Menu</a>
+	<div id="light" class="white_content">
+		<br>
+		<a href="/">Main Menu</a>
+		<br>
+		<br>
+		<a href="/instructions">Instructions</a>
+		<br>
+		<br>
+		<a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none';">Resume Game</a>
+	</div>
+	<div id="fade" class="black_overlay"></div>
+	<!-- <div id="phaser"></div> -->
 </body>
 </html>
