@@ -1,0 +1,34 @@
+body{
+	background-image: url(/images/airadventurelevel1.png);
+	font-family: 'Lobster', cursive;
+	color: #648C44;
+	font-size: 2em;
+}
+body a{
+	text-decoration: none;
+	color: #DBDBDB;
+	border: 2px solid #B67007;
+	background-color: #B67007;
+	border-radius: 10%;
+}
+body a:hover{
+	color: #648C44;
+}
+#main-menu{
+	text-align: center;
+	padding: 200px;
+}
+#inst{
+	width: 100%;
+}
+.controls .arrow{
+	float: left;
+	width: 20%;
+}
+.controls .jump{
+	float: left;
+	width: 20%;
+}
+.obstacles{
+	clear: both;
+}

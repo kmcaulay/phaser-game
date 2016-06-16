@@ -12,6 +12,9 @@ function onResizeCalled(){
 	canvas.style.height = window.innerHeight + 'px';
 }
 
+yellowJewels = 0
+var w = 1024, h = 768;
+
 function preload(){
 
 	game.load.image('background', '/images/colored_talltrees.png');
@@ -35,6 +38,9 @@ function preload(){
 	game.load.image('spikes1', '/images/spikesLow.png');
 	game.load.image('spikes2', '/images/spikesLow.png');
 	game.load.image('brokenBlock', '/images/blockGrey_broken.png');
+	game.load.image('brokenBlock1', '/images/blockGrey_broken.png');
+	game.load.image('brokenBlock2', '/images/blockGrey_broken.png');
+	game.load.image('brokenBlock3', '/images/blockGrey_broken.png');
 	game.load.image('yellowJewel', '/images/yellowJewel.png');
 	game.load.image('yellowJewel1', '/images/yellowJewel.png');
 	game.load.image('yellowJewel2', '/images/yellowJewel.png');
@@ -44,6 +50,9 @@ function preload(){
 	game.load.image('yellowJewel6', '/images/yellowJewel.png');
 	game.load.image('yellowJewel7', '/images/yellowJewel.png');
 	game.load.image('yellowJewel8', '/images/yellowJewel.png');
+	game.load.image('yellowJewel9', '/images/yellowJewel.png');
+	game.load.image('yellowJewel10', '/images/yellowJewel.png');
+	game.load.image('yellowJewel11', '/images/yellowJewel.png');
 	game.load.image('arrow', '/images/signArrow_right.png');
 	game.load.image('flag', '/images/flagGreen_up.png');
 	game.load.image('runner', '/images/playerRed_stand.png', 50, 50);
@@ -77,7 +86,7 @@ function create(){
 	game.physics.arcade.enable(arrow)
 
 // setting background assets/physics
-	tree = game.add.sprite(500,335, 'tree');
+	tree = game.add.sprite(550,335, 'tree');
 	tree1 = game.add.sprite(1500, 335, 'tree1')
 // tree physics
 	game.physics.arcade.enable(tree);
@@ -94,7 +103,7 @@ function create(){
 	game.physics.arcade.enable(grass1);	
 
 // finish line
-	flag = game.add.sprite(3000, 500, 'flag');
+	flag = game.add.sprite(4000, 500, 'flag');
 	flag.scale.x = game.rnd.realInRange(2, 2);
 	flag.scale.y = game.rnd.realInRange(2, 2);
 	game.physics.arcade.enable(flag);
@@ -182,14 +191,21 @@ function create(){
 	block9.body.immovable = true;
 // setting ground
 	line = game.add.sprite(0, 620, 'line');
-	
+
+//=============================
 // broken box 
 	brokenBlock = game.add.sprite(1200, 500, 'brokenBlock')
 	brokenBlock.scale.x = game.rnd.realInRange(1.9, 1.9);
 	brokenBlock.scale.y = game.rnd.realInRange(1.9, 1.9);
 // broken box physics
 	game.physics.arcade.enable(brokenBlock);
-
+//=============================
+	yellowJewel9 = game.add.sprite(1240, 525, 'yellowJewel9')
+	yellowJewel9.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel9.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel9);
+//=============================
 //yellow jewel
 	yellowJewel = game.add.sprite(300, 550, 'yellowJewel')
 	yellowJewel.scale.x = game.rnd.realInRange(2, 2);
@@ -203,7 +219,7 @@ function create(){
 // yellow jewel physics 
 	game.physics.arcade.enable(yellowJewel1);
 //=============================
-	yellowJewel2 = game.add.sprite(1200, 300, 'yellowJewel2')
+	yellowJewel2 = game.add.sprite(1240, 300, 'yellowJewel2')
 	yellowJewel2.scale.x = game.rnd.realInRange(2, 2);
 	yellowJewel2.scale.y = game.rnd.realInRange(2, 2);	
 // yellow jewel physics 
@@ -245,6 +261,39 @@ function create(){
 // yellow jewel physics 
 	game.physics.arcade.enable(yellowJewel8);
 //=============================
+	yellowJewel10 = game.add.sprite(3200, 100, 'yellowJewel10')
+	yellowJewel10.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel10.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel10);
+//=============================
+	yellowJewel11 = game.add.sprite(4000, 400, 'yellowJewel11')
+	yellowJewel11.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel11.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel11);
+//=============================
+// broken box 
+	brokenBlock1 = game.add.sprite(3000, 500, 'brokenBlock1')
+	brokenBlock1.scale.x = game.rnd.realInRange(1.9, 1.9);
+	brokenBlock1.scale.y = game.rnd.realInRange(1.9, 1.9);
+// broken box physics
+	game.physics.arcade.enable(brokenBlock1);
+//=============================
+// broken box 
+	brokenBlock2 = game.add.sprite(3120, 500, 'brokenBlock2')
+	brokenBlock2.scale.x = game.rnd.realInRange(1.9, 1.9);
+	brokenBlock2.scale.y = game.rnd.realInRange(1.9, 1.9);
+// broken box physics
+	game.physics.arcade.enable(brokenBlock2);
+//=============================
+// broken box 
+	brokenBlock3 = game.add.sprite(3120, 378, 'brokenBlock3')
+	brokenBlock3.scale.x = game.rnd.realInRange(1.9, 1.9);
+	brokenBlock3.scale.y = game.rnd.realInRange(1.9, 1.9);
+// broken box physics
+	game.physics.arcade.enable(brokenBlock3);
+//=============================
 // giving the line physics
 	game.physics.arcade.enable(line);
 	line.body.immovable = true;
@@ -259,7 +308,7 @@ function create(){
 	runner.body.collideWorldBounds = true;
 // add animation to character running
 	// runner.animation.add('right', [0,1,2,1], 2, true);
-	// game.add.tween(runner).to({x: game.width }, 10000, Phaser.Easing.Linear.None, true);
+
 	grassfront = game.add.sprite(400, 600, 'grassfront')
 	grassfront1 = game.add.sprite(800, 620, 'grassfront1')
 	grassfront2 = game.add.sprite(1100, 600, 'grassfront2')
@@ -282,8 +331,8 @@ function create(){
 	cursors = game.input.keyboard.createCursorKeys();
 
 	game.camera.follow(runner);
-// pause function
-	pause_label = game.add.text(w = 300, 20, 'Pause', {font: '24px Arial', fill: '#648C44'});
+// pause/menu function
+	pause_label = game.add.text(w = 300, 20, 'Menu', {font: '24px Lobster', fill: '#648C44'});
 	pause_label.inputEnabled = true;
 	pause_label.events.onInputUp.add(function(){
 		game.paused = true
@@ -292,17 +341,29 @@ function create(){
 		menu.scale.x = game.rnd.realInRange(6, 6);
 		menu.scale.y = game.rnd.realInRange(6, 6);
 		menu.anchor.setTo(0.5,0.5);
+
+		choiceLabel = game.add.text('menu', {font: '30px', fill: '#648C44'})
+		choiceLabel.anchor.setTo(0.5,0.5);
 	})
 	game.input.onDown.add(unpause, self);
 
 	function unpause(event){
 		if(game.paused){
-			
-			menu.destroy();
+			var x1 = w/2 - 270/2, x2 = w/2 + 270/2,
+            y1 = h/2 - 180/2, y2 = h/2 + 180/2;
+      if(event.x > x1 && event.x < x2 && event.y > y1 && event.y < y2){
+       	var x = event.x - x1,
+       			y = event.y - y1;
+       	var choice = Math.floor(x/90) + 3*Math.floor(y/90);
 
-			game.paused = false;
-			}
+       	choiceLabel.text = 'Menu'
+      } else {
+				menu.destroy();
+				choiceLabel.destroy();
+				game.paused = false;
+      }
 		}
+	}
 };
 
 function update() {
@@ -320,6 +381,9 @@ function update() {
 	game.physics.arcade.collide(runner, block8);
 	game.physics.arcade.collide(runner, block9);
 	game.physics.arcade.collide(runner, brokenBlock);
+	game.physics.arcade.collide(runner, brokenBlock1);
+	game.physics.arcade.collide(runner, brokenBlock2);
+	game.physics.arcade.collide(runner, brokenBlock3);
 	game.physics.arcade.collide(runner, yellowJewel, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel1, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel2, hitJewel);
@@ -329,6 +393,9 @@ function update() {
 	game.physics.arcade.collide(runner, yellowJewel6, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel7, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel8, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel9, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel10, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel11, hitJewel);
 	game.physics.arcade.collide(runner, flag);
 	game.physics.arcade.collide(runner, spikes, spikeDeath);
 	game.physics.arcade.collide(runner, spikes1, spikeDeath);
@@ -367,7 +434,13 @@ function update() {
 	yellowJewel6.body.velocity.x = 0;
 	yellowJewel7.body.velocity.x = 0;
 	yellowJewel8.body.velocity.x = 0;
+	yellowJewel9.body.velocity.x = 0;
+	yellowJewel10.body.velocity.x = 0;
+	yellowJewel11.body.velocity.x = 0;
 	brokenBlock.body.velocity.x = 0;
+	brokenBlock1.body.velocity.x = 0;
+	brokenBlock2.body.velocity.x = 0;
+	brokenBlock3.body.velocity.x = 0;
 	arrow.body.velocity.x = 0;
 	flag.body.velocity.x = 0;
 	spikes.body.velocity.x = 0;
@@ -383,13 +456,13 @@ function update() {
 	else if(cursors.right.isDown)
 	{
 // setting velocity when going righ†(forward)
-		background.tilePosition.x +=-2;
+		background.tilePosition.x +=-3;
 		runner.body.velocity.x = 75;
-		cloud.body.velocity.x = -100;
-		tree.body.velocity.x =-100;
-		tree1.body.velocity.x =-100;
-		grass.body.velocity.x =-100;
-		grass1.body.velocity.x =-100;
+		cloud.body.velocity.x = -120;
+		tree.body.velocity.x =-120;
+		tree1.body.velocity.x =-120;
+		grass.body.velocity.x =-120;
+		grass1.body.velocity.x =-120;
 		grassfront.body.velocity.x = -130;
 		grassfront1.body.velocity.x = -130;
 		grassfront2.body.velocity.x = -130;
@@ -408,7 +481,13 @@ function update() {
 		yellowJewel6.body.velocity.x = -130;
 		yellowJewel7.body.velocity.x = -130;
 		yellowJewel8.body.velocity.x = -130;
+		yellowJewel9.body.velocity.x = -130;
+		yellowJewel10.body.velocity.x = -130;
+		yellowJewel11.body.velocity.x = -130;
 		brokenBlock.body.velocity.x = -130;
+		brokenBlock1.body.velocity.x = -130;
+		brokenBlock2.body.velocity.x = -130;
+		brokenBlock3.body.velocity.x = -130;
 		arrow.body.velocity.x = -130
 		block1.body.velocity.x = -130;
 		block2.body.velocity.x = -130;
@@ -430,26 +509,27 @@ function update() {
 	{
 		runner.body.velocity.y = -400;
 	}
-// grabbing jewels
-	function hitJewel(runner, yellowJewel){
-		yellowJewel.kill();
-	}
 	// runner dies when touch spikes
 	function spikeDeath(runner, spikes){
 		runner.kill();
 	}
-	// function gemCounter(runner, yellowJewel){
 
+	// function musicPause(){
+	// 	if (pointer.y <300){
+	// 		music.pause();
+	// 	} else {
+	// 		music.resume();
+	// 	}
 	// }
-	function musicPause(){
-		if (pointer.y <300){
-			music.pause();
-		} else {
-			music.resume();
-		}
+// grabbing jewels	
+	function hitJewel(runner, yellowJewel){
+		yellowJewels++
+		yellowJewel.kill();
 	}
 };
+
 function render(){
-	game.debug.text("Timer: " + game.time.events.duration, 32, 32);
+	game.debug.text("Timer: " + game.time.events.duration, 32, 32, '#648C44');
+	game.debug.text("Gems: " + yellowJewels, 500, 20, '#648C44', 'Arial');
 
 }
