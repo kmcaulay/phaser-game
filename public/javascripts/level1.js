@@ -1,6 +1,6 @@
 window.addEventListener('resize', onResizeCalled, false);
 
-var game = new Phaser.Game(1024, 768, Phaser.CANVAS, '', {
+var game = new Phaser.Game(1200, 740, Phaser.CANVAS, 'phaser', {
 	preload: preload, 
 	create: create, 
 	update: update,
@@ -80,6 +80,7 @@ function preload(){
 	game.load.image('menu', '/images/puzzleRed.png')
 	game.load.audio('music', '/sounds/8-Bit.mp3')
 	game.load.audio('jump', '/sounds/Jump.mp3')
+	game.load.audio('gemSnd', '/sounds/Supercoin.mp3')
 
 };
 
@@ -88,8 +89,13 @@ function create(){
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 // music
 	music = game.add.audio('music');
-	music.play();
+	music.play(); 
 
+	function muteMusic(){
+		game.sound.mute = true;
+	}
+	jumpSnd = game.add.audio('jump');
+	gemSnd = game.add.audio('gemSnd');
 // adding background img and setting size variables
 	background = game.add.tileSprite(0, 0, 2000, 1080, 'background');
 	background.scale.x = game.rnd.realInRange(.70, .70);
@@ -120,6 +126,7 @@ function create(){
 	flag.scale.x = game.rnd.realInRange(2, 2);
 	flag.scale.y = game.rnd.realInRange(2, 2);
 	game.physics.arcade.enable(flag);
+	flag.body.immovable = true;
 
 
 // boxes
@@ -318,7 +325,10 @@ function create(){
 // giving the runner physics
 	game.physics.arcade.enable(runner);
 	runner.body.gravity.y = 500;
-	runner.body.collideWorldBounds = true;
+	// runner.body.collideWorldBounds = true;
+	
+	runner.body.checkWorldBounds = true;
+	runner.body.outOfBoundsKill = true;
 // add animation to character running
 	// runner.animation.add('right', [0,1,2,1], 2, true);
 
@@ -342,7 +352,6 @@ function create(){
 // establish jumping for runner
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	
-	jump = game.add.audio('jump')
 	
 	cursors = game.input.keyboard.createCursorKeys();
 
@@ -434,7 +443,7 @@ function update() {
 	if(cursors.left.isDown)
 	{
 // setting velocity when going left(backwords)
-		runner.body.velocity.x = -250;
+		runner.body.velocity.x = -125;
 		
 	} 
 	else if(cursors.right.isDown)
@@ -492,14 +501,19 @@ function update() {
 	if(jumpButton.isDown && (runner.body.onFloor() || runner.body.touching.down))
 	{
 		runner.body.velocity.y = -400;
+		jumpSnd.play();
 	}
 	// runner dies when touch spikes
 	function spikeDeath(runner, spikes){
 		runner.kill();
+		game.paused = true;
+		// get lightbox to work
+		// document.getElementById('gameOver').style.display == 'block'
 	}
 // grabbing jewels	
 	function hitJewel(runner, yellowJewel){
 		yellowJewels++
+		gemSnd.play();
 		yellowJewel.kill();
 	}
 	// pausing game with menu
@@ -510,6 +524,12 @@ function update() {
 	if(document.getElementById('light').style.display == 'block'){
 		game.paused = false;
 		}
+
+	function levelComplete(runner, flag){
+		game.paused = true;
+		// code for level complete and link to next level
+		// need to add this function to physics.arcade.collide above(same as hit jewel)
+	}
 };
 function render(){
 	stopWatch -= (game.paused)?0 : this.game.time.elapsed;

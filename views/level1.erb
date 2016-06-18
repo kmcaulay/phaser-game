@@ -6,15 +6,25 @@
 <body>
 	<a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';">Menu</a>
 	<div id="light" class="white_content">
+		<a href="/">Home</a>
 		<br>
-		<a href="/">Main Menu</a>
+		<br>
+		<a href='javascript:void(0)' onclick="muteMusic()">Mute Music</a>
 		<br>
 		<br>
-		<a href="/instructions">Instructions</a>
+		<a href='javascript:void(0)' onclick="muteSFX()">Mute Sounds</a>
 		<br>
 		<br>
 		<a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none';">Resume Game</a>
 	</div>
 	<div id="fade" class="black_overlay"></div>
-	<!-- <div id="phaser"></div> -->
+	<div id="phaser"></div>
+	<div id="gameOver" class="white_content">
+		<div id="box">
+			<h3>Game Over!</h3>
+			<a href="1">Retry Level</a>
+			<a href="/">Home</a>
+		</div>
+		<div class="black_overlay"></div>
+	</div>
 </body>

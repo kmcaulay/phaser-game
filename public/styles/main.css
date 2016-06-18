@@ -18,19 +18,29 @@ body a:hover{
 	text-align: center;
 	padding: 200px;
 }
+#nav {
+	background-color: #DBDBDB;
+	display: inline;
+	width: 100%;
+	text-align: center;
+	border-radius: 25%;
+}
+#nav h3, #nav h1{
+	display: inline;
+	padding: 25px;
+}
 #inst{
 	width: 100%;
+	text-align: center;
 }
-.controls .arrow{
-	float: left;
-	width: 20%;
+.jump, .arrow{
+	width: 40%;
 }
-.controls .jump{
-	float: left;
-	width: 20%;
-}
-.obstacles{
-	clear: both;
+#table{
+	width: 80%;
+	border: 1px #648C44;
+	text-align: center;
+	margin:auto;
 }
 .black_overlay{
 	display: none;
@@ -62,5 +72,8 @@ body a:hover{
 	text-align: center;
 }
 #phaser{
-	border: 2px solid black;
+	border: 10px solid black;
+}
+#gameOver{
+	display: none;
 }
