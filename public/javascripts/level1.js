@@ -68,7 +68,7 @@ function preload(){
 	game.load.image('yellowJewel11', '/images/yellowJewel.png');
 	game.load.image('arrow', '/images/signArrow_right.png');
 	game.load.image('flag', '/images/flagGreen_up.png');
-	game.load.image('runner', '/images/playerRed_stand.png', 50, 50);
+	game.load.image('runner', '/images/playerRed_stand.png', 48, 38);
 	game.load.image('grassfront', '/images/grass6.png');
 	game.load.image('grassfront1', '/images/grass2.png');
 	game.load.image('grassfront2', '/images/grass6.png');
@@ -77,10 +77,11 @@ function preload(){
 	game.load.image('grassfront5', '/images/grass2.png');
 	game.load.image('grassfront6', '/images/grass2.png');
 	game.load.image('grassfront7', '/images/grass4.png');
-	game.load.image('menu', '/images/puzzleRed.png')
-	game.load.audio('music', '/sounds/8-Bit.mp3')
-	game.load.audio('jump', '/sounds/Jump.mp3')
-	game.load.audio('gemSnd', '/sounds/Supercoin.mp3')
+	game.load.image('menu', '/images/puzzleRed.png');
+	game.load.audio('music', '/sounds/ILovetheMountains.mp3');
+	game.load.audio('jump', '/sounds/Jump.mp3');
+	game.load.audio('gemSnd', '/sounds/Supercoin.mp3');
+	game.load.audio('death', '/sounds/mb_die.mp3');
 
 };
 
@@ -92,8 +93,10 @@ function create(){
 	music.play(); 
 
 	function muteMusic(){
-		game.sound.mute = true;
+		music.sound.mute = true;
 	}
+	// soundfx
+	deathSnd = game.add.audio('death');
 	jumpSnd = game.add.audio('jump');
 	gemSnd = game.add.audio('gemSnd');
 // adding background img and setting size variables
@@ -328,9 +331,10 @@ function create(){
 	// runner.body.collideWorldBounds = true;
 	
 	runner.body.checkWorldBounds = true;
-	runner.body.outOfBoundsKill = true;
+	// runner.body.outOfBoundsKill = true;
 // add animation to character running
-	// runner.animation.add('right', [0,1,2,1], 2, true);
+	// runner.animation.add('walk')
+	// runner.animation.play('walk', [0,1,2,1,0], 5, true); 
 
 	grassfront = game.add.sprite(400, 600, 'grassfront')
 	grassfront1 = game.add.sprite(800, 620, 'grassfront1')
@@ -351,8 +355,7 @@ function create(){
 
 // establish jumping for runner
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-	
-	
+
 	cursors = game.input.keyboard.createCursorKeys();
 
 	game.camera.follow(runner);
@@ -505,10 +508,10 @@ function update() {
 	}
 	// runner dies when touch spikes
 	function spikeDeath(runner, spikes){
+		deathSnd.play();
 		runner.kill();
-		game.paused = true;
-		// get lightbox to work
 		// document.getElementById('gameOver').style.display == 'block'
+		game.paused = true;
 	}
 // grabbing jewels	
 	function hitJewel(runner, yellowJewel){

@@ -2,3 +2,20 @@
 	<title>Level 2</title>
 	<script type="text/javascript" src="/javascripts/level2.js"></script>
 </head>
+<body>
+	<a href="javascript:void(0)" onclick="document.getElementById('light').style.display='block';document.getElementById('fade').style.display='block';">Menu</a>
+	<div id="light" class="white_content">
+		<a href="/">Home</a>
+		<br>
+		<br>
+		<a href='javascript:void(0)' onclick="muteMusic()">Mute Music</a>
+		<br>
+		<br>
+		<a href='javascript:void(0)' onclick="muteSFX()">Mute Sounds</a>
+		<br>
+		<br>
+		<a href="javascript:void(0)" onclick="document.getElementById('light').style.display='none';document.getElementById('fade').style.display='none';">Resume Game</a>
+	</div>
+	<div id="fade" class="black_overlay"></div>
+	<div id="phaser"></div>
+</body>
