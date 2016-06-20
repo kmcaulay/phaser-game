@@ -510,7 +510,8 @@ function update() {
 	function spikeDeath(runner, spikes){
 		deathSnd.play();
 		runner.kill();
-		// document.getElementById('gameOver').style.display == 'block'
+		console.log('I say you he dead')
+		document.getElementById('gameOver').style.display = 'block'
 		game.paused = true;
 	}
 // grabbing jewels	

@@ -36,6 +36,19 @@ function preload(){
 	game.load.image('cloud1', '/images/cloud2.png');
 	game.load.image('cactus', '/images/tree18.png');
 	game.load.image('cactus1', '/images/tree19.png');
+	game.load.image('yellowJewel', '/images/yellowJewel.png');
+	game.load.image('yellowJewel1', '/images/yellowJewel.png');
+	game.load.image('yellowJewel2', '/images/yellowJewel.png');
+	game.load.image('yellowJewel3', '/images/yellowJewel.png');
+	game.load.image('yellowJewel4', '/images/yellowJewel.png');
+	game.load.image('yellowJewel5', '/images/yellowJewel.png');
+	game.load.image('yellowJewel6', '/images/yellowJewel.png');
+	game.load.image('yellowJewel7', '/images/yellowJewel.png');
+	game.load.image('yellowJewel8', '/images/yellowJewel.png');
+	game.load.image('yellowJewel9', '/images/yellowJewel.png');
+	game.load.image('yellowJewel10', '/images/yellowJewel.png');
+	game.load.image('yellowJewel11', '/images/yellowJewel.png');
+	game.load.image('yellowJewel12', '/images/yellowJewel.png');
 	game.load.image('plant', '/images/plantTop_yellow.png');
 	game.load.image('block', '/images/tileBrown_18.png');
 	game.load.image('block1', '/images/tileBrown_18.png');
@@ -51,6 +64,7 @@ function preload(){
 	game.load.image('platform3', '/images/plantStem_horizontal.png');
 	game.load.image('platform4', '/images/plantStem_horizontal.png');
 	game.load.image('platform5', '/images/plantStem_horizontal.png');
+	game.load.image('enemy', '/images/enemyWalking_1.png')
 	game.load.audio('music', '/sounds/ILovetheMountains.mp3');
 	game.load.audio('jump', '/sounds/Jump.mp3');
 	game.load.audio('gemSnd', '/sounds/Supercoin.mp3');
@@ -93,6 +107,17 @@ function create(){
 	line = game.add.sprite(0, 620, 'line');
 	game.physics.arcade.enable(line);
 	line.body.immovable = true;
+
+	enemy = game.add.sprite(800, 550, 'enemy');
+	enemy.scale.x = game.rnd.realInRange(1.8, 1.8);
+	enemy.scale.y = game.rnd.realInRange(1.8, 1.8);
+
+	game.physics.arcade.enable(enemy)
+	enemy.body.bounce.set(1);
+	// enemy.body.immovable = true;
+	// enemy.body.collideWorldBounds = true;
+	enemy.body.velocity.x = 200;
+
 // setting player
 	runner = game.add.sprite(10, 500, 'runner')
 	runner.scale.x = game.rnd.realInRange(1.8, 1.8);
@@ -156,6 +181,85 @@ function create(){
 	platform5 = game.add.sprite(2420, 300, 'platform5')
 	game.physics.arcade.enable(platform5);
 	platform5.body.immovable = true;
+
+	yellowJewel = game.add.sprite(300, 550, 'yellowJewel')
+	yellowJewel.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel);
+// ===============================
+	yellowJewel12 = game.add.sprite(730, 400, 'yellowJewel12')
+	yellowJewel12.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel12.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel12);
+	// ===============================
+	yellowJewel1 = game.add.sprite(1550, 300, 'yellowJewel1')
+	yellowJewel1.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel1.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel1);
+	// ===============================
+	yellowJewel2 = game.add.sprite(1600, 550, 'yellowJewel2')
+	yellowJewel2.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel2.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel2);
+// ===============================
+	yellowJewel3 = game.add.sprite(1700, 550, 'yellowJewel3')
+	yellowJewel3.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel3.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel3);
+// ===============================
+	yellowJewel4 = game.add.sprite(1700, 550, 'yellowJewel4')
+	yellowJewel4.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel4.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel4);
+// ===============================
+	yellowJewel5 = game.add.sprite(1800, 550, 'yellowJewel5')
+	yellowJewel5.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel5.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel5);
+// ===============================
+	yellowJewel6 = game.add.sprite(2000, 550, 'yellowJewel6')
+	yellowJewel6.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel6.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel6);
+// ===============================
+	yellowJewel7 = game.add.sprite(2200, 550, 'yellowJewel7')
+	yellowJewel7.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel7.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel7);
+// ===============================
+	yellowJewel8 = game.add.sprite(2400, 550, 'yellowJewel8')
+	yellowJewel8.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel8.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel8);
+// ===============================
+	yellowJewel9 = game.add.sprite(2600, 550, 'yellowJewel9')
+	yellowJewel9.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel9.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel9);
+// ===============================
+	yellowJewel10 = game.add.sprite(2700, 550, 'yellowJewel10')
+	yellowJewel10.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel10.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel10);
+// ===============================
+	yellowJewel11 = game.add.sprite(2800, 550, 'yellowJewel11')
+	yellowJewel11.scale.x = game.rnd.realInRange(2, 2);
+	yellowJewel11.scale.y = game.rnd.realInRange(2, 2);	
+// yellow jewel physics 
+	game.physics.arcade.enable(yellowJewel11);
+
 // giving the runner physics
 	game.physics.arcade.enable(runner);
 	runner.body.gravity.y = 500;
@@ -170,6 +274,9 @@ function create(){
 function update(){
 // collisions
 	game.physics.arcade.collide(runner, line);
+	game.physics.arcade.collide(runner, enemy);
+	game.physics.arcade.collide(enemy, block);
+	game.physics.arcade.collide(enemy, block1);
 	game.physics.arcade.collide(runner, block);
 	game.physics.arcade.collide(runner, block1);
 	game.physics.arcade.collide(runner, block2);
@@ -181,6 +288,19 @@ function update(){
 	game.physics.arcade.collide(runner, platform3);
 	game.physics.arcade.collide(runner, platform4);
 	game.physics.arcade.collide(runner, platform5);
+	game.physics.arcade.collide(runner, yellowJewel, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel1, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel2, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel3, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel4, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel5, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel6, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel7, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel8, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel9, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel10, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel11, hitJewel);
+	game.physics.arcade.collide(runner, yellowJewel12, hitJewel);
 
 // speed with no movement from runner
 	runner.body.velocity.x = 0;
@@ -199,6 +319,19 @@ function update(){
 	platform3.body.velocity.x = 0;
 	platform4.body.velocity.x = 0;
 	platform5.body.velocity.x = 0;
+	yellowJewel.body.velocity.x = 0;
+	yellowJewel1.body.velocity.x = 0;
+	yellowJewel2.body.velocity.x = 0;
+	yellowJewel3.body.velocity.x = 0;
+	yellowJewel4.body.velocity.x = 0;
+	yellowJewel5.body.velocity.x = 0;
+	yellowJewel6.body.velocity.x = 0;
+	yellowJewel7.body.velocity.x = 0;
+	yellowJewel8.body.velocity.x = 0;
+	yellowJewel9.body.velocity.x = 0;
+	yellowJewel10.body.velocity.x = 0;
+	yellowJewel11.body.velocity.x = 0;
+	yellowJewel12.body.velocity.x = 0;
 // runner physics logic with keys
 	if(cursors.left.isDown)
 	{
@@ -226,6 +359,19 @@ function update(){
 		platform3.body.velocity.x = -130;
 		platform4.body.velocity.x = -130;
 		platform5.body.velocity.x = -130;
+		yellowJewel.body.velocity.x = -130;
+		yellowJewel1.body.velocity.x = -130;
+		yellowJewel2.body.velocity.x = -130;
+		yellowJewel3.body.velocity.x = -130;
+		yellowJewel4.body.velocity.x = -130;
+		yellowJewel5.body.velocity.x = -130;
+		yellowJewel6.body.velocity.x = -130;
+		yellowJewel7.body.velocity.x = -130;
+		yellowJewel8.body.velocity.x = -130;
+		yellowJewel9.body.velocity.x = -130;
+		yellowJewel10.body.velocity.x = -130;
+		yellowJewel11.body.velocity.x = -130;
+		yellowJewel12.body.velocity.x = -130;
 	}
 	// only allow jump when runner on ground
 	if(jumpButton.isDown && (runner.body.onFloor() || runner.body.touching.down))
@@ -234,7 +380,7 @@ function update(){
 		jumpSnd.play();
 	}
 	// runner dies when touch spikes
-	function spikeDeath(runner, spikes){
+	function spikeDeath(runner, enemy){
 		deathSnd.play();
 		runner.kill();
 		// document.getElementById('gameOver').style.display == 'block'
