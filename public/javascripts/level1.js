@@ -81,7 +81,7 @@ function preload(){
 	game.load.audio('music', '/sounds/ILovetheMountains.mp3');
 	game.load.audio('jump', '/sounds/Jump.mp3');
 	game.load.audio('gemSnd', '/sounds/Supercoin.mp3');
-	game.load.audio('death', '/sounds/mb_die.mp3');
+	game.load.audio('deathSnd', '/sounds/mbdie.mp3');
 
 };
 
@@ -96,7 +96,7 @@ function create(){
 		music.sound.mute = true;
 	}
 	// soundfx
-	deathSnd = game.add.audio('death');
+	deathSnd = game.add.audio('deathSnd');
 	jumpSnd = game.add.audio('jump');
 	gemSnd = game.add.audio('gemSnd');
 // adding background img and setting size variables
@@ -392,7 +392,7 @@ function update() {
 	game.physics.arcade.collide(runner, yellowJewel9, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel10, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel11, hitJewel);
-	game.physics.arcade.collide(runner, flag);
+	game.physics.arcade.collide(runner, flag, levelComplete);
 	game.physics.arcade.collide(runner, spikes, spikeDeath);
 	game.physics.arcade.collide(runner, spikes1, spikeDeath);
 	game.physics.arcade.collide(runner, spikes2, spikeDeath);
@@ -508,11 +508,10 @@ function update() {
 	}
 	// runner dies when touch spikes
 	function spikeDeath(runner, spikes){
-		deathSnd.play();
 		runner.kill();
-		console.log('I say you he dead')
 		document.getElementById('gameOver').style.display = 'block'
-		game.paused = true;
+		// game.paused = true;
+		deathSnd.play();
 	}
 // grabbing jewels	
 	function hitJewel(runner, yellowJewel){
@@ -530,9 +529,10 @@ function update() {
 		}
 
 	function levelComplete(runner, flag){
+		document.getElementById('nextLevel').style.display = 'block'
 		game.paused = true;
 		// code for level complete and link to next level
-		// need to add this function to physics.arcade.collide above(same as hit jewel)
+		
 	}
 };
 function render(){

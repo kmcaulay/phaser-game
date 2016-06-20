@@ -383,7 +383,7 @@ function update(){
 	function spikeDeath(runner, enemy){
 		deathSnd.play();
 		runner.kill();
-		// document.getElementById('gameOver').style.display == 'block'
+		document.getElementById('gameOver').style.display = 'block'
 		game.paused = true;
 	}
 // grabbing jewels	
@@ -402,6 +402,7 @@ function update(){
 		}
 
 	function levelComplete(runner, flag){
+		document.getElementById('nextLevel').style.display = 'block'
 		game.paused = true;
 		// code for level complete and link to next level
 		// need to add this function to physics.arcade.collide above(same as hit jewel)
