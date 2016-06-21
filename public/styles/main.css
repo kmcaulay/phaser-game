@@ -71,6 +71,11 @@ body a:hover{
 	text-decoration: none;
 	text-align: center;
 }
+#menuButton{
+	z-index: 1000;
+	margin: 0 auto;
+	padding: 0;
+}
 #phaser{
 	border: 10px solid black;
 }

@@ -20,3 +20,7 @@ end
 get '/3' do
 	erb :level3
 end
+
+get '/4' do
+	erb :level4
+end

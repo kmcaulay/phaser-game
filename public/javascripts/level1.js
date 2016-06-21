@@ -82,6 +82,8 @@ function preload(){
 	game.load.audio('jump', '/sounds/Jump.mp3');
 	game.load.audio('gemSnd', '/sounds/Supercoin.mp3');
 	game.load.audio('deathSnd', '/sounds/mbdie.mp3');
+	game.load.audio('finishSnd', '/sounds/finish.mp3');
+	game.load.audio('creak', '/sounds/.mp3');
 
 };
 
@@ -92,13 +94,12 @@ function create(){
 	music = game.add.audio('music');
 	music.play(); 
 
-	function muteMusic(){
-		music.sound.mute = true;
-	}
 	// soundfx
 	deathSnd = game.add.audio('deathSnd');
 	jumpSnd = game.add.audio('jump');
 	gemSnd = game.add.audio('gemSnd');
+	finishSnd = game.add.audio('finishSnd');
+	creak = game.add.audio('creak');
 // adding background img and setting size variables
 	background = game.add.tileSprite(0, 0, 2000, 1080, 'background');
 	background.scale.x = game.rnd.realInRange(.70, .70);
@@ -125,7 +126,7 @@ function create(){
 	game.physics.arcade.enable(grass1);	
 
 // finish line
-	flag = game.add.sprite(4000, 500, 'flag');
+	flag = game.add.sprite(3600, 500, 'flag');
 	flag.scale.x = game.rnd.realInRange(2, 2);
 	flag.scale.y = game.rnd.realInRange(2, 2);
 	game.physics.arcade.enable(flag);
@@ -248,7 +249,7 @@ function create(){
 // yellow jewel physics 
 	game.physics.arcade.enable(yellowJewel2);
 //=============================
-	yellowJewel3 = game.add.sprite(1000, 500, 'yellowJewel3')
+	yellowJewel3 = game.add.sprite(1850, 500, 'yellowJewel3')
 	yellowJewel3.scale.x = game.rnd.realInRange(2, 2);
 	yellowJewel3.scale.y = game.rnd.realInRange(2, 2);	
 // yellow jewel physics 
@@ -260,13 +261,13 @@ function create(){
 // yellow jewel physics 
 	game.physics.arcade.enable(yellowJewel4);
 //=============================
-	yellowJewel5 = game.add.sprite(2100, 300, 'yellowJewel5')
+	yellowJewel5 = game.add.sprite(2120, 300, 'yellowJewel5')
 	yellowJewel5.scale.x = game.rnd.realInRange(2, 2);
 	yellowJewel5.scale.y = game.rnd.realInRange(2, 2);	
 // yellow jewel physics 
 	game.physics.arcade.enable(yellowJewel5);
 //=============================
-	yellowJewel6 = game.add.sprite(2300, 200, 'yellowJewel6')
+	yellowJewel6 = game.add.sprite(2270, 200, 'yellowJewel6')
 	yellowJewel6.scale.x = game.rnd.realInRange(2, 2);
 	yellowJewel6.scale.y = game.rnd.realInRange(2, 2);	
 // yellow jewel physics 
@@ -290,7 +291,7 @@ function create(){
 // yellow jewel physics 
 	game.physics.arcade.enable(yellowJewel10);
 //=============================
-	yellowJewel11 = game.add.sprite(4000, 400, 'yellowJewel11')
+	yellowJewel11 = game.add.sprite(3600, 400, 'yellowJewel11')
 	yellowJewel11.scale.x = game.rnd.realInRange(2, 2);
 	yellowJewel11.scale.y = game.rnd.realInRange(2, 2);	
 // yellow jewel physics 
@@ -376,10 +377,10 @@ function update() {
 	game.physics.arcade.collide(runner, block7);
 	game.physics.arcade.collide(runner, block8);
 	game.physics.arcade.collide(runner, block9);
-	game.physics.arcade.collide(runner, brokenBlock);
-	game.physics.arcade.collide(runner, brokenBlock1);
-	game.physics.arcade.collide(runner, brokenBlock2);
-	game.physics.arcade.collide(runner, brokenBlock3);
+	game.physics.arcade.collide(runner, brokenBlock, woodCreak);
+	game.physics.arcade.collide(runner, brokenBlock1, woodCreak);
+	game.physics.arcade.collide(runner, brokenBlock2, woodCreak);
+	game.physics.arcade.collide(runner, brokenBlock3, woodCreak);
 	game.physics.arcade.collide(runner, yellowJewel, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel1, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel2, hitJewel);
@@ -506,6 +507,9 @@ function update() {
 		runner.body.velocity.y = -400;
 		jumpSnd.play();
 	}
+	function woodCreak(runner, brokenBlock){
+		// creak.play();
+	}
 	// runner dies when touch spikes
 	function spikeDeath(runner, spikes){
 		runner.kill();
@@ -532,9 +536,12 @@ function update() {
 		document.getElementById('nextLevel').style.display = 'block'
 		game.paused = true;
 		// code for level complete and link to next level
-		
+		finishSnd.play();
 	}
 };
+function muteMusic(){
+	music.pause();
+}
 function render(){
 	stopWatch -= (game.paused)?0 : this.game.time.elapsed;
 	game.debug.text("Timer: " + stopWatch , 32, 32, '#648C44', '80px');
