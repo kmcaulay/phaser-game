@@ -31,8 +31,9 @@ var stopWatch = 1000000;
 
 function preload(){
   game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
-  game.load.image('background', '/images/airadventurelevel4.png');
-  game.load.image('line', '/images/whiteline.png');
+  game.load.image('background', '/images/colored_forest.png');
+  game.load.image('line', '/images/brownline1.png');
+  game.load.image('runner', '/images/playerRed_stand.png')
 }
 
 function create(){
@@ -50,10 +51,22 @@ function create(){
   background = game.add.tileSprite(0, 0, 2000, 1080, 'background');
   background.scale.x = game.rnd.realInRange(.70, .70);
   background.scale.y = game.rnd.realInRange(.70, .70);
+
+  line = game.add.sprite(0, 620, 'line');
+  game.physics.arcade.enable(line);
+  line.body.immovable = true;
+  
+  runner = game.add.sprite(10, 500, 'runner')
+  runner.scale.x = game.rnd.realInRange(1.8, 1.8);
+  runner.scale.y = game.rnd.realInRange(1.8, 1.8);
+
+  game.physics.arcade.enable(runner);
+  runner.body.gravity.y = 500;
+  runner.body.checkWorldBounds = true;
 }
 
 function update(){
-
+  game.physics.arcade.collide(runner, line);
 }
 function muteMusic(){
   music.pause();

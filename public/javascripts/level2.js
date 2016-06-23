@@ -80,15 +80,15 @@ function preload(){
 	game.load.image('spikes6', '/images/spikesLow.png');
 	game.load.image('spikes7', '/images/spikesLow.png');
 	game.load.image('spikes8', '/images/spikesLow.png');
-	game.load.image('enemy', '/images/enemyWalking_1.png');
-	game.load.image('enemy1', '/images/enemyWalking_1.png');
-	game.load.image('enemy2', '/images/enemyWalking_1.png');
+	game.load.spritesheet('enemy', '/images/enemy1.png', 34, 44);
+	game.load.spritesheet('enemy1', '/images/enemy1.png', 34, 44);
+	game.load.spritesheet('enemy2', '/images/enemy1.png', 34, 44);
 	game.load.image('flag', '/images/flagGreen_up.png');
 	game.load.audio('music', '/sounds/ILovetheMountains.mp3');
 	game.load.audio('jump', '/sounds/Jump.mp3');
 	game.load.audio('gemSnd', '/sounds/Supercoin.mp3');
 	game.load.audio('death', '/sounds/mbdie.mp3');
-	game.load.image('runner', '/images/playerRed_stand.png');
+	game.load.spritesheet('runner', '/images/guyRed.png', 39, 48);
 }
 
 function create(){
@@ -118,7 +118,7 @@ function create(){
 
 	arrow = game.add.sprite(100, 500, 'arrow');
 	game.physics.arcade.enable(arrow);
-
+// ===============================
 	line = game.add.sprite(0, 620, 'line');
 	game.physics.arcade.enable(line);
 	line.body.immovable = true;
@@ -126,6 +126,9 @@ function create(){
 	enemy = game.add.sprite(800, 550, 'enemy');
 	enemy.scale.x = game.rnd.realInRange(1.8, 1.8);
 	enemy.scale.y = game.rnd.realInRange(1.8, 1.8);
+
+	enemy.animations.add('run', [0,1], 7, true);
+	enemy.animations.play('run');
 
 	game.physics.arcade.enable(enemy)
 	enemy.body.bounce.set(1);
@@ -135,6 +138,9 @@ function create(){
 	enemy1.scale.x = game.rnd.realInRange(1.8, 1.8);
 	enemy1.scale.y = game.rnd.realInRange(1.8, 1.8);
 
+	enemy1.animations.add('run', [0,1], 7, true);
+	enemy1.animations.play('run');
+
 	game.physics.arcade.enable(enemy1)
 	enemy1.body.bounce.set(.8);
 	enemy1.body.velocity.x = 200;
@@ -142,6 +148,9 @@ function create(){
 	enemy2 = game.add.sprite(3700, 550, 'enemy2');
 	enemy2.scale.x = game.rnd.realInRange(1.8, 1.8);
 	enemy2.scale.y = game.rnd.realInRange(1.8, 1.8);
+
+	enemy2.animations.add('run', [0,1], 7, true);
+	enemy2.animations.play('run');
 
 	game.physics.arcade.enable(enemy2)
 	enemy2.body.bounce.set(.9);
@@ -378,11 +387,14 @@ function create(){
 	runner.body.gravity.y = 500;
 	runner.body.checkWorldBounds = true;
 
+	runner.animations.add('run', [0,1,2,1], 5, true);
+	runner.animations.play('run'); 
+
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 	cursors = game.input.keyboard.createCursorKeys();
 
-	game.camera.follow(runner);
+	// game.camera.follow(runner);
 }
 function update(){
 // collisions
@@ -440,64 +452,65 @@ function update(){
 
 
 // speed with no movement from runner
+	background.tilePosition.x +=-2;
 	runner.body.velocity.x = 0;
-	cloud.body.velocity.x = 0;
-	cactus.body.velocity.x = 0;
-	cactus1.body.velocity.x = 0;
-	arrow.body.velocity.x = 0;
-	block.body.velocity.x = 0;
-	block1.body.velocity.x = 0;
-	block2.body.velocity.x = 0;
-	block3.body.velocity.x = 0;
-	block4.body.velocity.x = 0;
-	block5.body.velocity.x = 0;
-	block6.body.velocity.x = 0;
-	brokenBlock.body.velocity.x = 0;
-	platform.body.velocity.x = 0;
-	// platform1.body.velocity.x = 0;
-	// platform2.body.velocity.x = 0;
-	// platform3.body.velocity.x = 0;
-	platform4.body.velocity.x = 0;
-	// platform5.body.velocity.x = 0;
-	platform6.body.velocity.x = 0;
-	// platform7.body.velocity.x = 0;
-	// platform8.body.velocity.x = 0;
-	// platform9.body.velocity.x = 0;
-	spikes.body.velocity.x = 0;
-	spikes1.body.velocity.x = 0;
-	spikes2.body.velocity.x = 0;
-	spikes3.body.velocity.x = 0;
-	spikes4.body.velocity.x = 0;
-	spikes5.body.velocity.x = 0;
-	spikes6.body.velocity.x = 0;
-	spikes7.body.velocity.x = 0;
-	yellowJewel.body.velocity.x = 0;
-	yellowJewel1.body.velocity.x = 0;
-	yellowJewel2.body.velocity.x = 0;
-	yellowJewel3.body.velocity.x = 0;
-	yellowJewel4.body.velocity.x = 0;
-	yellowJewel5.body.velocity.x = 0;
-	yellowJewel6.body.velocity.x = 0;
-	yellowJewel7.body.velocity.x = 0;
-	yellowJewel8.body.velocity.x = 0;
-	yellowJewel9.body.velocity.x = 0;
-	yellowJewel10.body.velocity.x = 0;
-	yellowJewel11.body.velocity.x = 0;
-	yellowJewel12.body.velocity.x = 0;
-	flag.body.velocity.x = 0;
+	// cloud.body.velocity.x = 0;
+	// cactus.body.velocity.x = 0;
+	// cactus1.body.velocity.x = 0;
+	// arrow.body.velocity.x = 0;
+	// block.body.velocity.x = 0;
+	// block1.body.velocity.x = 0;
+	// block2.body.velocity.x = 0;
+	// block3.body.velocity.x = 0;
+	// block4.body.velocity.x = 0;
+	// block5.body.velocity.x = 0;
+	// block6.body.velocity.x = 0;
+	// brokenBlock.body.velocity.x = 0;
+	// platform.body.velocity.x = 0;
+	// // platform1.body.velocity.x = 0;
+	// // platform2.body.velocity.x = 0;
+	// // platform3.body.velocity.x = 0;
+	// platform4.body.velocity.x = 0;
+	// // platform5.body.velocity.x = 0;
+	// platform6.body.velocity.x = 0;
+	// // platform7.body.velocity.x = 0;
+	// // platform8.body.velocity.x = 0;
+	// // platform9.body.velocity.x = 0;
+	// spikes.body.velocity.x = 0;
+	// spikes1.body.velocity.x = 0;
+	// spikes2.body.velocity.x = 0;
+	// spikes3.body.velocity.x = 0;
+	// spikes4.body.velocity.x = 0;
+	// spikes5.body.velocity.x = 0;
+	// spikes6.body.velocity.x = 0;
+	// spikes7.body.velocity.x = 0;
+	// yellowJewel.body.velocity.x = 0;
+	// yellowJewel1.body.velocity.x = 0;
+	// yellowJewel2.body.velocity.x = 0;
+	// yellowJewel3.body.velocity.x = 0;
+	// yellowJewel4.body.velocity.x = 0;
+	// yellowJewel5.body.velocity.x = 0;
+	// yellowJewel6.body.velocity.x = 0;
+	// yellowJewel7.body.velocity.x = 0;
+	// yellowJewel8.body.velocity.x = 0;
+	// yellowJewel9.body.velocity.x = 0;
+	// yellowJewel10.body.velocity.x = 0;
+	// yellowJewel11.body.velocity.x = 0;
+	// yellowJewel12.body.velocity.x = 0;
+	// flag.body.velocity.x = 0;
 
 // runner physics logic with keys
 	if(cursors.left.isDown)
 	{
 // setting velocity when going left(backwords)
-		runner.body.velocity.x = -125;
+		runner.body.velocity.x = -225;
 		
 	} 
 	else if(cursors.right.isDown)
 	{
 // setting velocity when going righ†(forward)
-		background.tilePosition.x +=-3;
-		runner.body.velocity.x = 75;
+		// background.tilePosition.x +=-3;
+		runner.body.velocity.x = 100;
 		cloud.body.velocity.x = -120;
 		cactus.body.velocity.x =-120; 
 		cactus1.body.velocity.x =-120; 
@@ -554,7 +567,7 @@ function update(){
 	function spikeDeath(runner, enemy){
 		deathSnd.play();
 		runner.kill();
-		document.getElementById('gameOver').style.display = 'block'
+		document.getElementById('gameOver').style.display = 'block';
 		// game.paused = true;
 	}
 // grabbing jewels	
@@ -578,8 +591,11 @@ function update(){
 		// code for level complete and link to next level
 	}
 	function enemies(runner, enemy){
-		killer++
-		enemy.kill();
+		// killer++
+		deathSnd.play();
+		runner.kill();
+		document.getElementById('gameOver').style.display = 'block';
+
 	}
 }
 function muteMusic(){
@@ -588,6 +604,6 @@ function muteMusic(){
 function render(){
 	stopWatch -= (game.paused)?0 : this.game.time.elapsed;
 	game.debug.text("Timer: " + stopWatch , 32, 32, '#648C44', '80px');
-	game.debug.text("Enemies Slayed: " + killer, 700, 20, '#648C44','Lobster 80px');
+	// game.debug.text("Enemies Slayed: " + killer, 700, 20, '#648C44','Lobster 80px');
 	game.debug.text('GEMS: ' + yellowJewels, 500, 20, '#648C44','Lobster 80px');
 }
