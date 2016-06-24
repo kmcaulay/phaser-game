@@ -1,4 +1,4 @@
-window.addEventListener('resize', onResizeCalled, false);
+// window.addEventListener('resize', onResizeCalled, false);
 
 var game = new Phaser.Game(1200, 740, Phaser.CANVAS, 'phaser', {
 	preload: preload, 
@@ -7,10 +7,10 @@ var game = new Phaser.Game(1200, 740, Phaser.CANVAS, 'phaser', {
 	render: render
 });
 
-function onResizeCalled(){
-	canvas.style.width = window.innerWidth + 'px';
-	canvas.style.height = window.innerHeight + 'px';
-}
+// function onResizeCalled(){
+// 	canvas.style.width = window.innerWidth + 'px';
+// 	canvas.style.height = window.innerHeight + 'px';
+// }
 
 WebFontConfig = {
   google: { families: [ 'Lobster::latin' ] }
@@ -25,8 +25,7 @@ WebFontConfig = {
 })();
 
 yellowJewels = 0
-var w = 1024, h = 768;
-var stopWatch = 1000000;
+var w = 1200, h = 740;
 
 function preload(){
 	game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
@@ -68,7 +67,7 @@ function preload(){
 	game.load.image('yellowJewel11', '/images/yellowJewel.png');
 	game.load.image('arrow', '/images/signArrow_right.png');
 	game.load.image('flag', '/images/flagGreen_up.png');
-	game.load.image('iline', '/images/line.png')
+	game.load.image('iline', '/images/line.png');
 	game.load.spritesheet('runner', '/images/guyRed.png', 39, 48);
 	game.load.image('grassfront', '/images/grass6.png');
 	game.load.image('grassfront1', '/images/grass2.png');
@@ -83,26 +82,26 @@ function preload(){
 	game.load.audio('gemSnd', '/sounds/Supercoin.mp3');
 	game.load.audio('deathSnd', '/sounds/mbdie.mp3');
 	game.load.audio('finishSnd', '/sounds/finish.mp3');
-	// game.load.audio('creak', '/sounds/.mp3');
-
 };
 
 
 function create(){
 	game.physics.startSystem(Phaser.Physics.ARCADE);
+	// setBound works to allow 2000 pixels to be runnable and below camera will follow
+	game.world.setBounds(0,0,2000,0);
 
 // music
 	music = game.add.audio('music');
 	// music.play();
 
-	// soundfx
+// soundfx
 	deathSnd = game.add.audio('deathSnd');
 	jumpSnd = game.add.audio('jump');
 	gemSnd = game.add.audio('gemSnd');
 	finishSnd = game.add.audio('finishSnd');
-	// creak = game.add.audio('creak');
+
 // adding background img and setting size variables
-	background = game.add.tileSprite(0, 0, 2000, 1080, 'background');
+	background = game.add.tileSprite(0, 0, 4000, 1080, 'background');
 	background.scale.x = game.rnd.realInRange(.70, .70);
 	background.scale.y = game.rnd.realInRange(.70, .70);
 
@@ -132,7 +131,7 @@ function create(){
 	flag.scale.y = game.rnd.realInRange(2, 2);
 	game.physics.arcade.enable(flag);
 	flag.body.immovable = true;
-	
+// invisible line after finish flag
 	iline = game.add.sprite(3800, 0, 'iline');
 	iline.scale.x = game.rnd.realInRange(2, 2);
 	iline.scale.y = game.rnd.realInRange(2, 2);
@@ -222,6 +221,9 @@ function create(){
 	block9.body.immovable = true;
 // setting ground
 	line = game.add.sprite(0, 620, 'line');
+	line.scale.x = game.rnd.realInRange(2,2);
+	game.physics.arcade.enable(line);
+	line.body.immovable = true;
 //=============================
 // broken box 
 	brokenBlock = game.add.sprite(1200, 500, 'brokenBlock')
@@ -324,23 +326,20 @@ function create(){
 // broken box physics
 	game.physics.arcade.enable(brokenBlock3);
 //=============================
-// giving the line physics
-	game.physics.arcade.enable(line);
-	line.body.immovable = true;
-
 // setting player sprite in beginning of level
 	runner = game.add.sprite(10, 500, 'runner');
 	runner.scale.x = game.rnd.realInRange(1.8, 1.8);
 	runner.scale.y = game.rnd.realInRange(1.8, 1.8);
+
+	game.camera.follow(runner);
 // giving the runner physics
 	game.physics.arcade.enable(runner);
 	runner.body.gravity.y = 500;
-	game.world.setBounds()
+	
 	runner.body.checkWorldBounds = true;
-	// runner.body.collideWorldBounds = true;
 	runner.body.outOfBoundsKill = true;
 // add animation to character running
-	runner.animations.add('run', [0,1,2,1], 8, true);
+	runner.animations.add('run', [0,1,2,1,0], 8, true);
 	runner.animations.add('stop', [0], true);
 	runner.animations.add('dead', [4], true);
 	runner.animations.add('jump', [3], true);
@@ -367,9 +366,6 @@ function create(){
 
 	cursors = game.input.keyboard.createCursorKeys();
 
-	// game.camera.follow(runner);
-	
-
 };
 
 function update() {
@@ -385,10 +381,10 @@ function update() {
 	game.physics.arcade.collide(runner, block7);
 	game.physics.arcade.collide(runner, block8);
 	game.physics.arcade.collide(runner, block9);
-	game.physics.arcade.collide(runner, brokenBlock, woodCreak);
-	game.physics.arcade.collide(runner, brokenBlock1, woodCreak);
-	game.physics.arcade.collide(runner, brokenBlock2, woodCreak);
-	game.physics.arcade.collide(runner, brokenBlock3, woodCreak);
+	game.physics.arcade.collide(runner, brokenBlock);
+	game.physics.arcade.collide(runner, brokenBlock1);
+	game.physics.arcade.collide(runner, brokenBlock2);
+	game.physics.arcade.collide(runner, brokenBlock3);
 	game.physics.arcade.collide(runner, yellowJewel, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel1, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel2, hitJewel);
@@ -406,73 +402,19 @@ function update() {
 	game.physics.arcade.collide(runner, spikes, spikeDeath);
 	game.physics.arcade.collide(runner, spikes1, spikeDeath);
 	game.physics.arcade.collide(runner, spikes2, spikeDeath);
-	// game.physics.arcade.collide(runner, checkWorldBounds, spikeDeath)
-// speed with no movement from runner
-	// game.camera.x -=10;
-	// background.autoScroll(2,2)
-	if(){
-		runner.animations.play('stop');
-	} else {
-		runner.animations.play('run');
-	}
-	// cloud.body.velocity.x = -160;
-	// tree.body.velocity.x = -160;
-	// tree1.body.velocity.x = -160;
-	// grass.body.velocity.x = -160;
-	// grass1.body.velocity.x = -160;
-	// grassfront.body.velocity.x = -120;
-	// grassfront1.body.velocity.x = -120;
-	// grassfront2.body.velocity.x = -120;
-	// grassfront3.body.velocity.x = -120;
-	// grassfront4.body.velocity.x = -120;
-	// grassfront5.body.velocity.x = -120;
-	// grassfront6.body.velocity.x = -120;
-	// grassfront7.body.velocity.x = -120;
-	// block.body.velocity.x = -120;
-	// block1.body.velocity.x = -120;
-	// block2.body.velocity.x = -120;
-	// block3.body.velocity.x = -120;
-	// block4.body.velocity.x = -120;
-	// block5.body.velocity.x = -120;
-	// block6.body.velocity.x = -120;
-	// block7.body.velocity.x = -120;
-	// block8.body.velocity.x = -120;
-	// block9.body.velocity.x = -120;
-	// yellowJewel.body.velocity.x = -120;
-	// yellowJewel1.body.velocity.x = -120;
-	// yellowJewel2.body.velocity.x = -120;
-	// yellowJewel3.body.velocity.x = -120;
-	// yellowJewel4.body.velocity.x = -120;
-	// yellowJewel5.body.velocity.x = -120;
-	// yellowJewel6.body.velocity.x = -120;
-	// yellowJewel7.body.velocity.x = -120;
-	// yellowJewel8.body.velocity.x = -120;
-	// yellowJewel9.body.velocity.x = -120;
-	// yellowJewel10.body.velocity.x = -120;
-	// yellowJewel11.body.velocity.x = -120;
-	// brokenBlock.body.velocity.x = -120;
-	// brokenBlock1.body.velocity.x = -120;
-	// brokenBlock2.body.velocity.x = -120;
-	// brokenBlock3.body.velocity.x = -120;
-	// arrow.body.velocity.x = -120;
-	// flag.body.velocity.x = -120;
-	// spikes.body.velocity.x = -120;
-	// spikes1.body.velocity.x = -120;
-	// spikes2.body.velocity.x = -120;
+
 // runner physics logic with keys
 	if(cursors.left.isDown)
 	{
 // setting velocity when going left(backwords)
-		runner.body.velocity.x = -225;
-
+		runner.body.velocity.x = -200;
 	} 
 	else if(cursors.right.isDown)
 	{
 // setting velocity when going righ†(forward)
-		// background.tilePosition.x +=-3;
 		runner.animations.play('run'); 
-		line.body.velocity.x = -10;
-		runner.body.velocity.x = 120;
+		line.body.velocity.x = -160;
+		runner.body.velocity.x = 200;
 		cloud.body.velocity.x = -160;
 		tree.body.velocity.x =-160;
 		tree1.body.velocity.x =-160;
@@ -518,22 +460,21 @@ function update() {
 		spikes.body.velocity.x = -130;
 		spikes1.body.velocity.x = -130;
 		spikes2.body.velocity.x = -130;
-
+	} else {
+		runner.body.velocity.x = 0;
+		runner.animations.stop();
 	}
 // only allow jump when runner on ground
 	if(jumpButton.isDown && (runner.body.onFloor() || runner.body.touching.down))
 	{
 		runner.body.velocity.y = -400;
+		jumpSnd.play();
 		runner.animations.play('jump'); 
 		// jumpSnd.play();
 	}
-	function woodCreak(runner, brokenBlock){
-		// creak.play();
-	}
-	// runner dies when touch spikes
+// runner dies when touch spikes
 	function spikeDeath(runner, spikes){
-	runner.animations.play('dead'); 
-		// runner.kill();
+		runner.animations.play('dead'); 
 		document.getElementById('gameOver').style.display = 'block'
 		game.paused = true;
 		// deathSnd.play();
@@ -552,14 +493,12 @@ function update() {
 	if(document.getElementById('light').style.display == 'block'){
 		game.paused = false;
 	}
-
+// worldbounds
 	if (runner.body.x < game.camera.x){
 		document.getElementById('gameOver').style.display = 'block'
 		runner.animations.play('dead')
 		game.paused = true;
 	}
-
-	music.loop = true;
 
 	function levelComplete(runner, flag){
 		document.getElementById('nextLevel').style.display = 'block'
@@ -572,7 +511,6 @@ function muteMusic(){
 	music.pause();
 }
 function render(){
-	
 	game.debug.text('GEMS: ' + yellowJewels, 500, 20, '#648C44','Lobster 80px');
 
 }

@@ -1,4 +1,4 @@
-window.addEventListener('resize', onResizeCalled, false);
+// window.addEventListener('resize', onResizeCalled, false);
 
 var game = new Phaser.Game(1200, 740, Phaser.CANVAS, 'phaser', {
 	preload: preload, 
@@ -7,10 +7,10 @@ var game = new Phaser.Game(1200, 740, Phaser.CANVAS, 'phaser', {
 	render: render
 });
 
-function onResizeCalled(){
-	canvas.style.width = window.innerWidth + 'px';
-	canvas.style.height = window.innerHeight + 'px';
-}
+// function onResizeCalled(){
+// 	canvas.style.width = window.innerWidth + 'px';
+// 	canvas.style.height = window.innerHeight + 'px';
+// }
 
 WebFontConfig = {
   google: { families: [ 'Lobster::latin' ] }
@@ -25,9 +25,7 @@ WebFontConfig = {
 })();
 
 yellowJewels = 0;
-killer = 0;
 var w = 1024, h = 768;
-var stopWatch = 1000000;
 
 function preload(){
 	game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
@@ -62,15 +60,8 @@ function preload(){
 	game.load.image('browngrass', '/images/grass1.png');
 	game.load.image('arrow', '/images/signArrow_right.png');
 	game.load.image('platform', '/images/ground_stone.png');
-	// game.load.image('platform1', '/images/ground_stone.png');
-	// game.load.image('platform2', '/images/ground_stone.png');
-	// game.load.image('platform3', '/images/ground_stone.png');
 	game.load.image('platform4', '/images/ground_stone.png');
-	// game.load.image('platform5', '/images/ground_stone.png');
 	game.load.image('platform6', '/images/ground_stone.png');
-	// game.load.image('platform7', '/images/ground_stone.png');
-	// game.load.image('platform8', '/images/ground_stone.png');
-	// game.load.image('platform9', '/images/ground_stone.png');
 	game.load.image('spikes', '/images/spikesLow.png');
 	game.load.image('spikes1', '/images/spikesLow.png');
 	game.load.image('spikes2', '/images/spikesLow.png');
@@ -84,26 +75,31 @@ function preload(){
 	game.load.spritesheet('enemy1', '/images/enemy1.png', 34, 44);
 	game.load.spritesheet('enemy2', '/images/enemy1.png', 34, 44);
 	game.load.image('flag', '/images/flagGreen_up.png');
+	game.load.image('iline', '/images/line.png');
 	game.load.audio('music', '/sounds/ILovetheMountains.mp3');
 	game.load.audio('jump', '/sounds/Jump.mp3');
 	game.load.audio('gemSnd', '/sounds/Supercoin.mp3');
 	game.load.audio('death', '/sounds/mbdie.mp3');
+	game.load.audio('finishSnd', '/sounds/finish.mp3');
 	game.load.spritesheet('runner', '/images/guyRed.png', 39, 48);
 }
 
 function create(){
 	game.physics.startSystem(Phaser.Physics.ARCADE);
-// timer
-	game.time.events.add(Phaser.Timer.SECOND * 100);
+
+	game.world.setBounds(0,0,2000,0);	
 // music
 	music = game.add.audio('music');
-	music.play();
+	// music.play();
 
+// sfx
 	deathSnd = game.add.audio('death');
 	jumpSnd = game.add.audio('jump');
 	gemSnd = game.add.audio('gemSnd');
+	finishSnd = game.add.audio('finishSnd');
+
 // adding background img and setting size variables
-	background = game.add.tileSprite(0, 0, 2000, 1080, 'background');
+	background = game.add.tileSprite(0, 0, 4000, 1080, 'background');
 	background.scale.x = game.rnd.realInRange(.70, .70);
 	background.scale.y = game.rnd.realInRange(.70, .70);
 
@@ -120,6 +116,7 @@ function create(){
 	game.physics.arcade.enable(arrow);
 // ===============================
 	line = game.add.sprite(0, 620, 'line');
+	line.scale.x = game.rnd.realInRange(2,2);
 	game.physics.arcade.enable(line);
 	line.body.immovable = true;
 // ===============================
@@ -142,7 +139,7 @@ function create(){
 	enemy1.animations.play('run');
 
 	game.physics.arcade.enable(enemy1)
-	enemy1.body.bounce.set(.8);
+	enemy1.body.bounce.set(.9);
 	enemy1.body.velocity.x = 200;
 // ===============================
 	enemy2 = game.add.sprite(3700, 550, 'enemy2');
@@ -153,13 +150,8 @@ function create(){
 	enemy2.animations.play('run');
 
 	game.physics.arcade.enable(enemy2)
-	enemy2.body.bounce.set(.9);
+	enemy2.body.bounce.set(1);
 	enemy2.body.velocity.x = 200;
-// ===============================
-// setting player
-	runner = game.add.sprite(10, 500, 'runner')
-	runner.scale.x = game.rnd.realInRange(1.8, 1.8);
-	runner.scale.y = game.rnd.realInRange(1.8, 1.8);
 // ===============================
 // boxes
 	block = game.add.sprite(700, 500, 'block')
@@ -258,47 +250,19 @@ function create(){
 	platform.body.immovable = true;
 	platform.scale.x = game.rnd.realInRange(.7, .7);
 	platform.scale.y = game.rnd.realInRange(.7, .7);
-// // ===============================
-// 	platform1 = game.add.sprite(2164, 375, 'platform1')
-// 	game.physics.arcade.enable(platform1);
-// 	platform1.body.immovable = true;
-// // ===============================
-// 	platform2 = game.add.sprite(2228, 375, 'platform2')
-// 	game.physics.arcade.enable(platform2);
-// 	platform2.body.immovable = true;
-// // ===============================
-// 	platform3 = game.add.sprite(2292, 375, 'platform3')
-// 	game.physics.arcade.enable(platform3);
-// 	platform3.body.immovable = true;
-	// ===============================
+// ===============================
 	platform4 = game.add.sprite(2356, 300, 'platform4')
 	game.physics.arcade.enable(platform4);
 	platform4.body.immovable = true;
 	platform4.scale.x = game.rnd.realInRange(.7, .7);
 	platform4.scale.y = game.rnd.realInRange(.7, .7);
-	// ===============================
-	// platform5 = game.add.sprite(2420, 300, 'platform5')
-	// game.physics.arcade.enable(platform5);
-	// platform5.body.immovable = true;
-	// ===============================
+// ===============================
 	platform6 = game.add.sprite(3128, 375, 'platform6')
 	game.physics.arcade.enable(platform6);
 	platform6.body.immovable = true;
 	platform6.scale.x = game.rnd.realInRange(.7, .7);
 	platform6.scale.y = game.rnd.realInRange(.7, .7);
 // ===============================
-	// platform7 = game.add.sprite(3192, 375, 'platform7')
-	// game.physics.arcade.enable(platform7);
-	// platform7.body.immovable = true;
-	// // =============================
-	// platform8 = game.add.sprite(3256, 375, 'platform8')
-	// game.physics.arcade.enable(platform8);
-	// platform8.body.immovable = true;
-	// // ===============================
-	// platform9 = game.add.sprite(3320, 375, 'platform9')
-	// game.physics.arcade.enable(platform9);
-	// platform9.body.immovable = true;
-	// ===============================
 	yellowJewel = game.add.sprite(300, 550, 'yellowJewel')
 	yellowJewel.scale.x = game.rnd.realInRange(2, 2);
 	yellowJewel.scale.y = game.rnd.realInRange(2, 2);	
@@ -382,20 +346,36 @@ function create(){
 	flag.scale.y = game.rnd.realInRange(2, 2);
 	game.physics.arcade.enable(flag);
 	flag.body.immovable = true;
+// invisible line after finish flag
+	iline = game.add.sprite(5000, 0, 'iline');
+	iline.scale.x = game.rnd.realInRange(2, 2);
+	iline.scale.y = game.rnd.realInRange(2, 2);
+	game.physics.arcade.enable(iline);
+	iline.body.immovable = true;
+// ===============================
+// setting player
+	runner = game.add.sprite(10, 500, 'runner')
+	runner.scale.x = game.rnd.realInRange(1.8, 1.8);
+	runner.scale.y = game.rnd.realInRange(1.8, 1.8);
+
+	game.camera.follow(runner);
 // giving the runner physics
 	game.physics.arcade.enable(runner);
 	runner.body.gravity.y = 500;
-	runner.body.checkWorldBounds = true;
 
-	runner.animations.add('run', [0,1,2,1], 5, true);
-	runner.animations.play('run'); 
+	runner.body.checkWorldBounds = true;
+	runner.body.outOfBoundsKill = true;
+
+	runner.animations.add('run', [0,1,2,1,0], 8, true);
+	runner.animations.add('stop', [0], true);
+	runner.animations.add('dead', [4], true);
+	runner.animations.add('jump', [3], true);
 
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 	cursors = game.input.keyboard.createCursorKeys();
-
-	// game.camera.follow(runner);
 }
+
 function update(){
 // collisions
 	game.physics.arcade.collide(runner, line);
@@ -418,15 +398,8 @@ function update(){
 	game.physics.arcade.collide(runner, block6);
 	game.physics.arcade.collide(runner, brokenBlock);
 	game.physics.arcade.collide(runner, platform);
-	// game.physics.arcade.collide(runner, platform1);
-	// game.physics.arcade.collide(runner, platform2);
-	// game.physics.arcade.collide(runner, platform3);
 	game.physics.arcade.collide(runner, platform4);
-	// game.physics.arcade.collide(runner, platform5);
 	game.physics.arcade.collide(runner, platform6);
-	// game.physics.arcade.collide(runner, platform7);
-	// game.physics.arcade.collide(runner, platform8);
-	// game.physics.arcade.collide(runner, platform9);
 	game.physics.arcade.collide(runner, spikes, spikeDeath)
 	game.physics.arcade.collide(runner, spikes1, spikeDeath)
 	game.physics.arcade.collide(runner, spikes2, spikeDeath)
@@ -449,68 +422,21 @@ function update(){
 	game.physics.arcade.collide(runner, yellowJewel11, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel12, hitJewel);
 	game.physics.arcade.collide(runner, flag, levelComplete);
-
-
-// speed with no movement from runner
-	background.tilePosition.x +=-2;
-	runner.body.velocity.x = 0;
-	// cloud.body.velocity.x = 0;
-	// cactus.body.velocity.x = 0;
-	// cactus1.body.velocity.x = 0;
-	// arrow.body.velocity.x = 0;
-	// block.body.velocity.x = 0;
-	// block1.body.velocity.x = 0;
-	// block2.body.velocity.x = 0;
-	// block3.body.velocity.x = 0;
-	// block4.body.velocity.x = 0;
-	// block5.body.velocity.x = 0;
-	// block6.body.velocity.x = 0;
-	// brokenBlock.body.velocity.x = 0;
-	// platform.body.velocity.x = 0;
-	// // platform1.body.velocity.x = 0;
-	// // platform2.body.velocity.x = 0;
-	// // platform3.body.velocity.x = 0;
-	// platform4.body.velocity.x = 0;
-	// // platform5.body.velocity.x = 0;
-	// platform6.body.velocity.x = 0;
-	// // platform7.body.velocity.x = 0;
-	// // platform8.body.velocity.x = 0;
-	// // platform9.body.velocity.x = 0;
-	// spikes.body.velocity.x = 0;
-	// spikes1.body.velocity.x = 0;
-	// spikes2.body.velocity.x = 0;
-	// spikes3.body.velocity.x = 0;
-	// spikes4.body.velocity.x = 0;
-	// spikes5.body.velocity.x = 0;
-	// spikes6.body.velocity.x = 0;
-	// spikes7.body.velocity.x = 0;
-	// yellowJewel.body.velocity.x = 0;
-	// yellowJewel1.body.velocity.x = 0;
-	// yellowJewel2.body.velocity.x = 0;
-	// yellowJewel3.body.velocity.x = 0;
-	// yellowJewel4.body.velocity.x = 0;
-	// yellowJewel5.body.velocity.x = 0;
-	// yellowJewel6.body.velocity.x = 0;
-	// yellowJewel7.body.velocity.x = 0;
-	// yellowJewel8.body.velocity.x = 0;
-	// yellowJewel9.body.velocity.x = 0;
-	// yellowJewel10.body.velocity.x = 0;
-	// yellowJewel11.body.velocity.x = 0;
-	// yellowJewel12.body.velocity.x = 0;
-	// flag.body.velocity.x = 0;
+	game.physics.arcade.collide(runner, iline, levelComplete);
 
 // runner physics logic with keys
 	if(cursors.left.isDown)
 	{
 // setting velocity when going left(backwords)
-		runner.body.velocity.x = -225;
+		runner.body.velocity.x = -200;
 		
 	} 
 	else if(cursors.right.isDown)
 	{
 // setting velocity when going righ†(forward)
-		// background.tilePosition.x +=-3;
-		runner.body.velocity.x = 100;
+		runner.animations.play('run');
+		line.body.velocity.x = -160;
+		runner.body.velocity.x = 200;
 		cloud.body.velocity.x = -120;
 		cactus.body.velocity.x =-120; 
 		cactus1.body.velocity.x =-120; 
@@ -524,15 +450,8 @@ function update(){
 		block6.body.velocity.x = -130;
 		brokenBlock.body.velocity.x = -130;
 		platform.body.velocity.x = -130;
-		// platform1.body.velocity.x = -130;
-		// platform2.body.velocity.x = -130;
-		// platform3.body.velocity.x = -130;
 		platform4.body.velocity.x = -130;
-		// platform5.body.velocity.x = -130;
 		platform6.body.velocity.x = -130;
-		// platform7.body.velocity.x = -130;
-		// platform8.body.velocity.x = -130;
-		// platform9.body.velocity.x = -130;
 		spikes.body.velocity.x = -130;
 		spikes1.body.velocity.x = -130;
 		spikes2.body.velocity.x = -130;
@@ -554,21 +473,25 @@ function update(){
 		yellowJewel10.body.velocity.x = -130;
 		yellowJewel11.body.velocity.x = -130;
 		yellowJewel12.body.velocity.x = -130;
+		iline.body.velocity.x = -130;
 		flag.body.velocity.x = -130;
-
+	} else {
+		runner.body.velocity.x = 0;
+		runner.animations.stop();
 	}
 	// only allow jump when runner on ground
 	if(jumpButton.isDown && (runner.body.onFloor() || runner.body.touching.down))
 	{
 		runner.body.velocity.y = -400;
 		jumpSnd.play();
+		runner.animations.play('jump'); 
 	}
 	// runner dies when touch spikes
 	function spikeDeath(runner, enemy){
+		runner.animations.play('dead');
 		deathSnd.play();
-		runner.kill();
 		document.getElementById('gameOver').style.display = 'block';
-		// game.paused = true;
+		game.paused = true;
 	}
 // grabbing jewels	
 	function hitJewel(runner, yellowJewel){
@@ -583,27 +506,30 @@ function update(){
 	// unpausing game with menu
 	if(document.getElementById('light').style.display == 'block'){
 		game.paused = false;
-		}
+	}
+// worldbounds
+	if (runner.body.x < game.camera.x){
+		document.getElementById('gameOver').style.display = 'block';
+		runner.animations.play('dead')
+		game.paused = true;
+	}
 
 	function levelComplete(runner, flag){
-		document.getElementById('nextLevel').style.display = 'block'
+		document.getElementById('nextLevel').style.display = 'block';
 		game.paused = true;
-		// code for level complete and link to next level
+		background.tilePosition.x +=-3;
+		finishSnd.play();
 	}
+
 	function enemies(runner, enemy){
-		// killer++
 		deathSnd.play();
 		runner.kill();
 		document.getElementById('gameOver').style.display = 'block';
-
 	}
 }
 function muteMusic(){
 	music.pause();
 }
 function render(){
-	stopWatch -= (game.paused)?0 : this.game.time.elapsed;
-	game.debug.text("Timer: " + stopWatch , 32, 32, '#648C44', '80px');
-	// game.debug.text("Enemies Slayed: " + killer, 700, 20, '#648C44','Lobster 80px');
 	game.debug.text('GEMS: ' + yellowJewels, 500, 20, '#648C44','Lobster 80px');
 }
