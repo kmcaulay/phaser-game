@@ -24,7 +24,7 @@ WebFontConfig = {
   s.parentNode.insertBefore(wf, s);
 })();
 
-yellowJewels = 0;
+// yellowJewels = 0;
 var w = 1024, h = 768;
 
 function preload(){
@@ -103,7 +103,7 @@ function create(){
 	background.scale.x = game.rnd.realInRange(.70, .70);
 	background.scale.y = game.rnd.realInRange(.70, .70);
 
-	cactus = game.add.sprite(550,335, 'cactus');
+	cactus = game.add.sprite(550,345, 'cactus');
 	game.physics.arcade.enable(cactus);
 
 	cactus1 = game.add.sprite(1200,345, 'cactus1');
@@ -234,10 +234,6 @@ function create(){
 	spikes7 = game.add.sprite(3448, 600, 'spikes7');
 	game.physics.arcade.enable(spikes7);
 	spikes7.body.immovable = true;
-// ===============================
-	spikes8 = game.add.sprite(3512, 600, 'spikes8');
-	game.physics.arcade.enable(spikes8);
-	spikes8.body.immovable = true;
 // ===============================
 	brokenBlock = game.add.sprite(2000, 500, 'brokenBlock');
 	brokenBlock.scale.x = game.rnd.realInRange(1.9, 1.9);
@@ -400,14 +396,14 @@ function update(){
 	game.physics.arcade.collide(runner, platform);
 	game.physics.arcade.collide(runner, platform4);
 	game.physics.arcade.collide(runner, platform6);
-	game.physics.arcade.collide(runner, spikes, spikeDeath)
-	game.physics.arcade.collide(runner, spikes1, spikeDeath)
-	game.physics.arcade.collide(runner, spikes2, spikeDeath)
-	game.physics.arcade.collide(runner, spikes3, spikeDeath)
-	game.physics.arcade.collide(runner, spikes4, spikeDeath)
-	game.physics.arcade.collide(runner, spikes5, spikeDeath)
-	game.physics.arcade.collide(runner, spikes6, spikeDeath)
-	game.physics.arcade.collide(runner, spikes7, spikeDeath)
+	game.physics.arcade.collide(runner, spikes, spikeDeath);
+	game.physics.arcade.collide(runner, spikes1, spikeDeath);
+	game.physics.arcade.collide(runner, spikes2, spikeDeath);
+	game.physics.arcade.collide(runner, spikes3, spikeDeath);
+	game.physics.arcade.collide(runner, spikes4, spikeDeath);
+	game.physics.arcade.collide(runner, spikes5, spikeDeath);
+	game.physics.arcade.collide(runner, spikes6, spikeDeath);
+	game.physics.arcade.collide(runner, spikes7, spikeDeath);
 	game.physics.arcade.collide(runner, yellowJewel, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel1, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel2, hitJewel);
@@ -526,6 +522,9 @@ function update(){
 		runner.kill();
 		document.getElementById('gameOver').style.display = 'block';
 	}
+	document.getElementById('gems').innerHTML = yellowJewels;
+	document.getElementById('gems1').innerHTML = yellowJewels;
+	
 }
 function muteMusic(){
 	music.pause();

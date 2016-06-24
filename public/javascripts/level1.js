@@ -24,7 +24,7 @@ WebFontConfig = {
   s.parentNode.insertBefore(wf, s);
 })();
 
-yellowJewels = 0
+// yellowJewels = 0
 var w = 1200, h = 740;
 
 function preload(){
@@ -105,8 +105,8 @@ function create(){
 	background.scale.x = game.rnd.realInRange(.70, .70);
 	background.scale.y = game.rnd.realInRange(.70, .70);
 
-	arrow = game.add.sprite(100, 500, 'arrow')
-	game.physics.arcade.enable(arrow)
+	arrow = game.add.sprite(100, 500, 'arrow');
+	game.physics.arcade.enable(arrow);
 
 // setting background assets/physics
 	tree = game.add.sprite(550,335, 'tree');
@@ -397,8 +397,8 @@ function update() {
 	game.physics.arcade.collide(runner, yellowJewel9, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel10, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel11, hitJewel);
-	game.physics.arcade.collide(runner, flag, levelComplete);
-	game.physics.arcade.collide(runner, iline, levelComplete);
+	game.physics.arcade.collide(runner, flag, yellowJewels, levelComplete);
+	game.physics.arcade.collide(runner, iline, yellowJewels, levelComplete);
 	game.physics.arcade.collide(runner, spikes, spikeDeath);
 	game.physics.arcade.collide(runner, spikes1, spikeDeath);
 	game.physics.arcade.collide(runner, spikes2, spikeDeath);
@@ -503,15 +503,17 @@ function update() {
 	function levelComplete(runner, flag){
 		document.getElementById('nextLevel').style.display = 'block'
 		game.paused = true;
-		background.tilePosition.x +=-3;
+		// background.tilePosition.x +=-3;
 		finishSnd.play();
 	}
+	document.getElementById('gems').innerHTML = yellowJewels;
+	document.getElementById('gems1').innerHTML = yellowJewels;
 };
 function muteMusic(){
 	music.pause();
 }
 function render(){
 	game.debug.text('GEMS: ' + yellowJewels, 500, 20, '#648C44','Lobster 80px');
-
 }
+
 

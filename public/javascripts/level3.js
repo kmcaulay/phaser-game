@@ -24,7 +24,7 @@ WebFontConfig = {
   s.parentNode.insertBefore(wf, s);
 })();
 
-yellowJewels = 0;
+// yellowJewels = 0;
 var w = 1024, h = 768;
 
 function preload(){
@@ -96,7 +96,7 @@ function create(){
 	arrow = game.add.sprite(100, 560, 'arrow');
 	game.physics.arcade.enable(arrow);
 // ===============================
-	line = game.add.sprite(0, 660, 'line');
+	line = game.add.sprite(0, 620, 'line');
 	line.scale.x = game.rnd.realInRange(2,2);
 	game.physics.arcade.enable(line);
 	line.body.immovable = true;
@@ -424,6 +424,9 @@ function update(){
 		runner.kill();
 		document.getElementById('gameOver').style.display = 'block';
 	}
+	document.getElementById('gems').innerHTML = yellowJewels;
+	document.getElementById('gems1').innerHTML = yellowJewels;
+	
 }
 function muteMusic(){
 	music.pause();
