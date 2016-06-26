@@ -519,8 +519,10 @@ function update(){
 	}
 
 	function enemies(runner, enemy){
-		deathSnd.play();
-		runner.kill();
+		// deathSnd.play();
+		runner.animations.play('dead');
+		// runner.kill();
+		game.paused = true;
 		document.getElementById('gameOver').style.display = 'block';
 	}
 	document.getElementById('gems').innerHTML = yellowJewels;

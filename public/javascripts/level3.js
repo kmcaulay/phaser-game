@@ -96,11 +96,6 @@ function create(){
 	arrow = game.add.sprite(100, 560, 'arrow');
 	game.physics.arcade.enable(arrow);
 // ===============================
-	line = game.add.sprite(0, 620, 'line');
-	line.scale.x = game.rnd.realInRange(2,2);
-	game.physics.arcade.enable(line);
-	line.body.immovable = true;
-// ===============================
 	tree = game.add.sprite(1240, 400, 'tree');
 	game.physics.arcade.enable(tree);	
 // ===============================
@@ -112,6 +107,11 @@ function create(){
 // ===============================
 	tree3 = game.add.sprite(4960, 400, 'tree3');
 	game.physics.arcade.enable(tree3);	
+// ===============================
+	line = game.add.sprite(0, 620, 'line');
+	line.scale.x = game.rnd.realInRange(2,2);
+	game.physics.arcade.enable(line);
+	line.body.immovable = true;
 // ===============================	
 	cloud = game.add.sprite(600, 100, 'cloud');
 	game.physics.arcade.enable(cloud);
@@ -297,13 +297,13 @@ function update(){
 	game.physics.arcade.collide(runner, iline, levelComplete);
 	game.physics.arcade.collide(enemy, block4);
 	game.physics.arcade.collide(enemy, block3);
-	game.physics.arcade.collide(runner, enemy, enemies);
+	game.physics.arcade.collide(runner, enemy, spikeDeath);
 	game.physics.arcade.collide(enemy1, block4);
 	game.physics.arcade.collide(enemy1, flag);
-	game.physics.arcade.collide(runner, enemy1, enemies);
+	game.physics.arcade.collide(runner, enemy1, spikeDeath);
 	game.physics.arcade.collide(enemy2, block4);
 	game.physics.arcade.collide(enemy2, flag);
-	game.physics.arcade.collide(runner, enemy2, enemies);
+	game.physics.arcade.collide(runner, enemy2, spikeDeath);
 	game.physics.arcade.collide(enemy1, enemy2);
 	game.physics.arcade.collide(runner, platform);
 	game.physics.arcade.collide(runner, platform1);
@@ -384,9 +384,9 @@ function update(){
 	}
 	// runner dies when touch spikes
 	function spikeDeath(runner, enemy){
+		// deathSnd.play();
 		runner.animations.play('dead');
-		deathSnd.play();
-		runner.kill();
+		// runner.kill();
 		game.paused = true;
 		document.getElementById('gameOver').style.display = 'block'
 	}
@@ -424,7 +424,8 @@ function update(){
 	
 	function enemies(runner, enemy){
 		deathSnd.play();
-		runner.kill();
+		runner.animations.play('dead');
+		// runner.kill();
 		document.getElementById('gameOver').style.display = 'block';
 	}
 	document.getElementById('gems').innerHTML = yellowJewels;

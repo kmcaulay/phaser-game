@@ -91,7 +91,7 @@ function create(){
 
 // music
 	music = game.add.audio('music');
-	// music.play();
+	music.play();
 
 // soundfx
 	deathSnd = game.add.audio('deathSnd');
@@ -495,10 +495,13 @@ function update() {
 		game.paused = true;
 		// background.tilePosition.x +=-3;
 		finishSnd.play();
+		function saveScore(k,v){
+			Cookies.set(k,v)
+		}
 	}
 	document.getElementById('gems').innerHTML = yellowJewels;
 	document.getElementById('gems1').innerHTML = yellowJewels;
-	// document.getElementById('lvl1').innerHTML = yellowJewels;
+
 };
 function muteMusic(){
 	music.pause();
