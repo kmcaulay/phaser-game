@@ -525,7 +525,7 @@ function update(){
 	}
 	document.getElementById('gems').innerHTML = yellowJewels;
 	document.getElementById('gems1').innerHTML = yellowJewels;
-	document.getElementById('lvl2').innerHTML = yellowJewels;
+	// document.getElementById('lvl2').innerHTML = yellowJewels;
 
 }
 function muteMusic(){
