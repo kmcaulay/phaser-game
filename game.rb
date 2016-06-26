@@ -24,3 +24,7 @@ end
 get '/4' do
 	erb :level4
 end
+
+get '/scoreboard' do
+	erb :scoreboard
+end

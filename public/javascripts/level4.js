@@ -87,7 +87,7 @@ function preload(){
 function create(){
   game.physics.startSystem(Phaser.Physics.ARCADE);
 
-  game.world.setBounds(0,0,2000,0);
+  game.world.setBounds(0,0,8000,0);
 // music
   music = game.add.audio('music');
   music.play();
@@ -518,6 +518,8 @@ function update(){
     document.getElementById('gameOver').style.display = 'block';
   }
   document.getElementById('gems').innerHTML = yellowJewels;
+  document.getElementById('gems1').innerHTML = yellowJewels;
+  document.getElementById('lvl4').innerHTML = yellowJewels;
 }
 function muteMusic(){
   music.pause();

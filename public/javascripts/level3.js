@@ -77,7 +77,7 @@ function preload(){
 function create(){
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
-	game.world.setBounds(0,0,2000,0);	
+	game.world.setBounds(0,0,8000,0);	
 
 // music
 	music = game.add.audio('music');
@@ -116,25 +116,25 @@ function create(){
 	cloud = game.add.sprite(600, 100, 'cloud');
 	game.physics.arcade.enable(cloud);
 // ===============================	
-	block1 = game.add.sprite(400, 600, 'block1');
+	block1 = game.add.sprite(400, 550, 'block1');
 	game.physics.arcade.enable(block1);
 	block1.body.immovable = true;
 	block1.body.friction = 0;
 // ===============================
-	block2 = game.add.sprite(900, 600, 'block2');
+	block2 = game.add.sprite(900, 550, 'block2');
 	game.physics.arcade.enable(block2);
 	block2.body.immovable = true;
 	block2.body.friction = 0;
 // ===============================
-	block3 = game.add.sprite(1400, 600, 'block3');
+	block3 = game.add.sprite(1400, 550, 'block3');
 	game.physics.arcade.enable(block3);
 	block3.body.immovable = true;
 // ===============================
-	block4 = game.add.sprite(3500, 600, 'block4');
+	block4 = game.add.sprite(3500, 550, 'block4');
 	game.physics.arcade.enable(block4);
 	block4.body.immovable = true;
 // ===============================
-	enemy = game.add.sprite(1550, 600, 'enemy');
+	enemy = game.add.sprite(1550, 550, 'enemy');
 	enemy.scale.x = game.rnd.realInRange(1.8, 1.8);
 	enemy.scale.y = game.rnd.realInRange(1.8, 1.8);
 
@@ -145,7 +145,7 @@ function create(){
 	enemy.body.bounce.set(.8);
 	enemy.body.velocity.x = 200;
 // ===============================
-	enemy1 = game.add.sprite(3650, 600, 'enemy1');
+	enemy1 = game.add.sprite(3650, 550, 'enemy1');
 	enemy1.scale.x = game.rnd.realInRange(1.8, 1.8);
 	enemy1.scale.y = game.rnd.realInRange(1.8, 1.8);
 
@@ -156,7 +156,7 @@ function create(){
 	enemy1.body.bounce.set(.9);
 	enemy1.body.velocity.x = 200;
 // ===============================
-	enemy2 = game.add.sprite(3700, 600, 'enemy2');
+	enemy2 = game.add.sprite(3700, 550, 'enemy2');
 	enemy2.scale.x = game.rnd.realInRange(1.8, 1.8);
 	enemy2.scale.y = game.rnd.realInRange(1.8, 1.8);
 
@@ -167,12 +167,12 @@ function create(){
 	enemy2.body.bounce.set(1);
 	enemy2.body.velocity.x = 200;
 // ===============================
-	platform = game.add.sprite(1650, 500, 'platform');
+	platform = game.add.sprite(1650, 400, 'platform');
 	game.physics.arcade.enable(platform);
 	platform.body.immovable = true;
 	platform.friction = 0;
 // ===============================
-	platform1 = game.add.sprite(2300, 500, 'platform1');
+	platform1 = game.add.sprite(2300, 400, 'platform1');
 	game.physics.arcade.enable(platform1);
 	platform1.body.immovable = true;
 // ===============================
@@ -200,22 +200,22 @@ function create(){
 	yellowJewel3.scale.y = game.rnd.realInRange(2, 2);
 	game.physics.arcade.enable(yellowJewel3);
 // ===============================
-	yellowJewel4 = game.add.sprite(1700, 400, 'yellowJewel4');
+	yellowJewel4 = game.add.sprite(1700, 300, 'yellowJewel4');
 	yellowJewel4.scale.x = game.rnd.realInRange(2, 2);
 	yellowJewel4.scale.y = game.rnd.realInRange(2, 2);
 	game.physics.arcade.enable(yellowJewel4);
 // ===============================
-	yellowJewel5 = game.add.sprite(1900, 400, 'yellowJewel5');
+	yellowJewel5 = game.add.sprite(1900, 300, 'yellowJewel5');
 	yellowJewel5.scale.x = game.rnd.realInRange(2, 2);
 	yellowJewel5.scale.y = game.rnd.realInRange(2, 2);
 	game.physics.arcade.enable(yellowJewel5);
 // ===============================
-	yellowJewel6 = game.add.sprite(2170, 300, 'yellowJewel6');
+	yellowJewel6 = game.add.sprite(2170, 200, 'yellowJewel6');
 	yellowJewel6.scale.x = game.rnd.realInRange(2, 2);
 	yellowJewel6.scale.y = game.rnd.realInRange(2, 2);
 	game.physics.arcade.enable(yellowJewel6);
 // ===============================
-	yellowJewel7 = game.add.sprite(2470, 400, 'yellowJewel7');
+	yellowJewel7 = game.add.sprite(2470, 300, 'yellowJewel7');
 	yellowJewel7.scale.x = game.rnd.realInRange(2, 2);
 	yellowJewel7.scale.y = game.rnd.realInRange(2, 2);
 	game.physics.arcade.enable(yellowJewel7);
@@ -255,7 +255,7 @@ function create(){
 	yellowJewel14.scale.y = game.rnd.realInRange(2, 2);
 	game.physics.arcade.enable(yellowJewel14);
 // ===============================
-	flag = game.add.sprite(4800, 550, 'flag');
+	flag = game.add.sprite(4800, 500, 'flag');
 	flag.scale.x = game.rnd.realInRange(2, 2);
 	flag.scale.y = game.rnd.realInRange(2, 2);
 	game.physics.arcade.enable(flag);
@@ -385,8 +385,8 @@ function update(){
 		runner.animations.play('dead');
 		deathSnd.play();
 		runner.kill();
-		document.getElementById('gameOver').style.display = 'block'
 		game.paused = true;
+		document.getElementById('gameOver').style.display = 'block'
 	}
 // grabbing jewels	
 	function hitJewel(runner, yellowJewel){
@@ -415,6 +415,7 @@ function update(){
 		background.tilePosition.x +=-3;
 		finishSnd.play();
 	}
+
 	function setFriction(runner, platform){
 		platform.body.x -= platform.body.x - platform.body.prev.x;
 	}
@@ -426,6 +427,7 @@ function update(){
 	}
 	document.getElementById('gems').innerHTML = yellowJewels;
 	document.getElementById('gems1').innerHTML = yellowJewels;
+	document.getElementById('lvl3').innerHTML = yellowJewels;
 	
 }
 function muteMusic(){

@@ -33,7 +33,8 @@ body a:hover{
 #inst{
 	width: 100%;
 	text-align: center;
-	padding: 10%;
+	padding-left: 10%;
+	padding-top: 10px;
 }
 .jump, .arrow{
 	width: 40%;
@@ -84,6 +85,9 @@ body a:hover{
 }
 #phaser{
 	border: 10px solid black;
+}
+#score h1{
+	text-align: center;
 }
 #gameOver{
 	display: none;

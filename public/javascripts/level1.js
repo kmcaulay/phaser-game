@@ -51,7 +51,6 @@ function preload(){
 	game.load.image('spikes2', '/images/spikesLow.png');
 	game.load.image('brokenBlock', '/images/blockGrey_broken.png');
 	game.load.image('brokenBlock1', '/images/blockGrey_broken.png');
-	game.load.image('brokenBlock2', '/images/blockGrey_broken.png');
 	game.load.image('brokenBlock3', '/images/blockGrey_broken.png');
 	game.load.image('yellowJewel', '/images/yellowJewel.png');
 	game.load.image('yellowJewel1', '/images/yellowJewel.png');
@@ -88,7 +87,7 @@ function preload(){
 function create(){
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	// setBound works to allow 2000 pixels to be runnable and below camera will follow
-	game.world.setBounds(0,0,2000,0);
+	game.world.setBounds(0,0,8000,0);
 
 // music
 	music = game.add.audio('music');
@@ -313,13 +312,6 @@ function create(){
 	game.physics.arcade.enable(brokenBlock1);
 //=============================
 // broken box 
-	brokenBlock2 = game.add.sprite(3120, 500, 'brokenBlock2')
-	brokenBlock2.scale.x = game.rnd.realInRange(1.9, 1.9);
-	brokenBlock2.scale.y = game.rnd.realInRange(1.9, 1.9);
-// broken box physics
-	game.physics.arcade.enable(brokenBlock2);
-//=============================
-// broken box 
 	brokenBlock3 = game.add.sprite(3120, 378, 'brokenBlock3')
 	brokenBlock3.scale.x = game.rnd.realInRange(1.9, 1.9);
 	brokenBlock3.scale.y = game.rnd.realInRange(1.9, 1.9);
@@ -383,7 +375,6 @@ function update() {
 	game.physics.arcade.collide(runner, block9);
 	game.physics.arcade.collide(runner, brokenBlock);
 	game.physics.arcade.collide(runner, brokenBlock1);
-	game.physics.arcade.collide(runner, brokenBlock2);
 	game.physics.arcade.collide(runner, brokenBlock3);
 	game.physics.arcade.collide(runner, yellowJewel, hitJewel);
 	game.physics.arcade.collide(runner, yellowJewel1, hitJewel);
@@ -443,7 +434,6 @@ function update() {
 		yellowJewel11.body.velocity.x = -130;
 		brokenBlock.body.velocity.x = -130;
 		brokenBlock1.body.velocity.x = -130;
-		brokenBlock2.body.velocity.x = -130;
 		brokenBlock3.body.velocity.x = -130;
 		arrow.body.velocity.x = -130
 		block1.body.velocity.x = -130;
@@ -508,6 +498,7 @@ function update() {
 	}
 	document.getElementById('gems').innerHTML = yellowJewels;
 	document.getElementById('gems1').innerHTML = yellowJewels;
+	document.getElementById('lvl1').innerHTML = yellowJewels;
 };
 function muteMusic(){
 	music.pause();

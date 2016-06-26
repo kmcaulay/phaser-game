@@ -1,1 +1,2 @@
 yellowJewels = 0;
+
