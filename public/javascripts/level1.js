@@ -472,7 +472,7 @@ function update() {
 // grabbing jewels	
 	function hitJewel(runner, yellowJewel){
 		yellowJewels++
-		// gemSnd.play();
+		gemSnd.play();
 		yellowJewel.kill();
 	}
 	// pausing game with menu
@@ -496,7 +496,7 @@ function update() {
 		// background.tilePosition.x +=-3;
 		finishSnd.play();
 		function saveScore(k,v){
-			Cookies.set(k,v)
+			document.cookie = lvl1Score;
 		}
 	}
 	document.getElementById('gems').innerHTML = yellowJewels;
