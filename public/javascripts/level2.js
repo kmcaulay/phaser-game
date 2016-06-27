@@ -35,6 +35,7 @@ function preload(){
 	game.load.image('cloud1', '/images/cloud2.png');
 	game.load.image('cactus', '/images/tree18.png');
 	game.load.image('cactus1', '/images/tree19.png');
+	game.load.image('scoreGem', '/images/yellowJewel.png');
 	game.load.image('yellowJewel', '/images/yellowJewel.png');
 	game.load.image('yellowJewel1', '/images/yellowJewel.png');
 	game.load.image('yellowJewel2', '/images/yellowJewel.png');
@@ -367,6 +368,10 @@ function create(){
 	runner.animations.add('dead', [4], true);
 	runner.animations.add('jump', [3], true);
 
+	// scoreGem = game.add.sprite(500, 0, 'scoreGem');
+	// scoreGem.scale.x = game.rnd.realInRange(2, 2);
+	// scoreGem.scale.y = game.rnd.realInRange(2, 2);
+
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 	cursors = game.input.keyboard.createCursorKeys();
@@ -485,14 +490,13 @@ function update(){
 	// runner dies when touch spikes
 	function spikeDeath(runner, enemy){
 		runner.animations.play('dead');
-		deathSnd.play();
+		// deathSnd.play();
 		document.getElementById('gameOver').style.display = 'block';
 		game.paused = true;
 	}
 // grabbing jewels	
 	function hitJewel(runner, yellowJewel){
 		yellowJewels++
-		// console.log(yellowJewels)
 		gemSnd.play();
 		yellowJewel.kill();
 	}
@@ -514,7 +518,7 @@ function update(){
 	function levelComplete(runner, flag){
 		document.getElementById('nextLevel').style.display = 'block';
 		game.paused = true;
-		background.tilePosition.x +=-3;
+		// background.tilePosition.x +=-3;
 		finishSnd.play();
 	}
 

@@ -52,6 +52,7 @@ function preload(){
 	game.load.image('brokenBlock', '/images/blockGrey_broken.png');
 	game.load.image('brokenBlock1', '/images/blockGrey_broken.png');
 	game.load.image('brokenBlock3', '/images/blockGrey_broken.png');
+	game.load.image('scoreGem', '/images/yellowJewel.png');
 	game.load.image('yellowJewel', '/images/yellowJewel.png');
 	game.load.image('yellowJewel1', '/images/yellowJewel.png');
 	game.load.image('yellowJewel2', '/images/yellowJewel.png');
@@ -336,14 +337,14 @@ function create(){
 	runner.animations.add('dead', [4], true);
 	runner.animations.add('jump', [3], true);
 
-	grassfront = game.add.sprite(400, 600, 'grassfront')
-	grassfront1 = game.add.sprite(800, 620, 'grassfront1')
-	grassfront2 = game.add.sprite(1100, 600, 'grassfront2')
-	grassfront3 = game.add.sprite(1450, 610, 'grassfront3')
-	grassfront4 = game.add.sprite(1600, 620, 'grassfront4')
-	grassfront5 = game.add.sprite(1800, 615, 'grassfront5')
-	grassfront6 = game.add.sprite(2200, 600, 'grassfront6')
-	grassfront7 = game.add.sprite(2500, 620, 'grassfront7')
+	grassfront = game.add.sprite(400, 600, 'grassfront');
+	grassfront1 = game.add.sprite(800, 620, 'grassfront1');
+	grassfront2 = game.add.sprite(1100, 600, 'grassfront2');
+	grassfront3 = game.add.sprite(1450, 610, 'grassfront3');
+	grassfront4 = game.add.sprite(1600, 620, 'grassfront4');
+	grassfront5 = game.add.sprite(1800, 615, 'grassfront5');
+	grassfront6 = game.add.sprite(2200, 600, 'grassfront6');
+	grassfront7 = game.add.sprite(2500, 620, 'grassfront7');
 	game.physics.arcade.enable(grassfront);	
 	game.physics.arcade.enable(grassfront1);	
 	game.physics.arcade.enable(grassfront2);	
@@ -352,6 +353,11 @@ function create(){
 	game.physics.arcade.enable(grassfront5);	
 	game.physics.arcade.enable(grassfront6);	
 	game.physics.arcade.enable(grassfront7);	
+
+	// scoreGem = game.add.sprite(500, 0, 'scoreGem');
+	// scoreGem.scale.x = game.rnd.realInRange(2, 2);
+	// scoreGem.scale.y = game.rnd.realInRange(2, 2);
+	// game.physics.arcade.enable(scoreGem);
 
 // establish jumping for runner
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
@@ -460,7 +466,6 @@ function update() {
 		runner.body.velocity.y = -400;
 		jumpSnd.play();
 		runner.animations.play('jump'); 
-		// jumpSnd.play();
 	}
 // runner dies when touch spikes
 	function spikeDeath(runner, spikes){
@@ -495,7 +500,7 @@ function update() {
 		game.paused = true;
 		// background.tilePosition.x +=-3;
 		finishSnd.play();
-		function saveScore(k,v){
+		function saveScore(lvl1Score,score){
 			document.cookie = lvl1Score;
 		}
 	}
@@ -507,7 +512,7 @@ function muteMusic(){
 	music.pause();
 }
 function render(){
-	game.debug.text('GEMS: ' + yellowJewels, 500, 20, '#648C44','Lobster 80px');
+	game.debug.text('Gems: ' + yellowJewels, 500, 20, '#648C44','Lobster 80px');
 }
 
 

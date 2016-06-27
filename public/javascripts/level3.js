@@ -36,6 +36,7 @@ function preload(){
 	game.load.image('tree2', '/images/tree33.png');
 	game.load.image('tree3', '/images/tree33.png');
 	game.load.image('cloud', '/images/cloud1.png');
+	game.load.image('scoreGem', '/images/yellowJewel.png');
 	game.load.image('yellowJewel', '/images/yellowJewel.png');
 	game.load.image('yellowJewel1', '/images/yellowJewel.png');
 	game.load.image('yellowJewel2', '/images/yellowJewel.png');
@@ -285,6 +286,10 @@ function create(){
 	runner.animations.add('stop', [0], true);
 	runner.animations.add('dead', [4], true);
 	runner.animations.add('jump', [3], true);
+
+	// scoreGem = game.add.sprite(500, 0, 'scoreGem');
+	// scoreGem.scale.x = game.rnd.realInRange(2, 2);
+	// scoreGem.scale.y = game.rnd.realInRange(2, 2);
 // ===============================
 	jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -297,13 +302,13 @@ function update(){
 	game.physics.arcade.collide(runner, iline, levelComplete);
 	game.physics.arcade.collide(enemy, block4);
 	game.physics.arcade.collide(enemy, block3);
-	game.physics.arcade.collide(runner, enemy, spikeDeath);
+	game.physics.arcade.collide(runner, enemy, enemies);
 	game.physics.arcade.collide(enemy1, block4);
 	game.physics.arcade.collide(enemy1, flag);
-	game.physics.arcade.collide(runner, enemy1, spikeDeath);
+	game.physics.arcade.collide(runner, enemy1, enemies);
 	game.physics.arcade.collide(enemy2, block4);
 	game.physics.arcade.collide(enemy2, flag);
-	game.physics.arcade.collide(runner, enemy2, spikeDeath);
+	game.physics.arcade.collide(runner, enemy2, enemies);
 	game.physics.arcade.collide(enemy1, enemy2);
 	game.physics.arcade.collide(runner, platform);
 	game.physics.arcade.collide(runner, platform1);
@@ -372,7 +377,7 @@ function update(){
 		yellowJewel13.body.velocity.x = -130;
 		yellowJewel14.body.velocity.x = -130;
 	}else{
-		runner.body.velocity.x = 0;
+		runner.body.velocity.x = 100;
 		runner.animations.stop();
 	}
 	// only allow jump when runner on ground
@@ -414,7 +419,7 @@ function update(){
 	function levelComplete(runner, flag){
 		document.getElementById('nextLevel').style.display = 'block'
 		game.paused = true;
-		background.tilePosition.x +=-3;
+		// background.tilePosition.x +=-3;
 		finishSnd.play();
 	}
 
@@ -423,8 +428,9 @@ function update(){
 	}
 	
 	function enemies(runner, enemy){
-		deathSnd.play();
+		// deathSnd.play();
 		runner.animations.play('dead');
+		game.paused = true;
 		// runner.kill();
 		document.getElementById('gameOver').style.display = 'block';
 	}

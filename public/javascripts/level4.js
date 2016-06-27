@@ -32,6 +32,7 @@ function preload(){
   game.load.image('background', '/images/colored_forest.png');
   game.load.image('line', '/images/brownline1.png');
   game.load.image('runner', '/images/playerRed_stand.png');
+  game.load.image('scoreGem', '/images/yellowJewel.png');
   game.load.image('yellowJewel', '/images/yellowJewel.png');
   game.load.image('yellowJewel1', '/images/yellowJewel.png');
   game.load.image('yellowJewel2', '/images/yellowJewel.png');
@@ -352,6 +353,10 @@ function create(){
   runner.animations.add('stop', [0], true);
   runner.animations.add('dead', [4], true);
   runner.animations.add('jump', [3], true);
+
+  // scoreGem = game.add.sprite(500, 0, 'scoreGem');
+  // scoreGem.scale.x = game.rnd.realInRange(2, 2);
+  // scoreGem.scale.y = game.rnd.realInRange(2, 2);
 // ===============================
   jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
@@ -508,7 +513,7 @@ function update(){
   function levelComplete(runner, flag){
     document.getElementById('nextLevel').style.display = 'block'
     game.paused = true;
-    background.tilePosition.x +=-3;
+    // background.tilePosition.x +=-3;
     finishSnd.play();
   }
 
